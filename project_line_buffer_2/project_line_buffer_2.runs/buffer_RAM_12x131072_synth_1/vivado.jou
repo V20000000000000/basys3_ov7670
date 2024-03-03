@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Thu Dec 28 18:15:57 2023
+# Process ID: 14360
+# Current directory: G:/FPGA/vivado_project/7670_test111/7670_test111.runs/buffer_RAM_12x131072_synth_1
+# Command line: vivado.exe -log buffer_RAM_12x131072.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source buffer_RAM_12x131072.tcl
+# Log file: G:/FPGA/vivado_project/7670_test111/7670_test111.runs/buffer_RAM_12x131072_synth_1/buffer_RAM_12x131072.vds
+# Journal file: G:/FPGA/vivado_project/7670_test111/7670_test111.runs/buffer_RAM_12x131072_synth_1\vivado.jou
+# Running On: DESKTOP-BBI44NC, OS: Windows, CPU Frequency: 3693 MHz, CPU Physical cores: 12, Host memory: 34258 MB
+#-----------------------------------------------------------
+source buffer_RAM_12x131072.tcl -notrace

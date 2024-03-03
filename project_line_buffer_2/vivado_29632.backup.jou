@@ -1,0 +1,19 @@
+#-----------------------------------------------------------
+# Vivado v2023.2.1 (64-bit)
+# SW Build 4081461 on Thu Dec 14 12:24:51 MST 2023
+# IP Build 4080415 on Thu Dec 14 21:01:57 MST 2023
+# SharedData Build 4077621 on Mon Dec 11 00:23:44 MST 2023
+# Start of session at: Sun Mar  3 19:39:09 2024
+# Process ID: 29632
+# Current directory: D:/verilog_practice/project_line_buffer_2
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19100 D:\verilog_practice\project_line_buffer_2\project_line_buffer_2.xpr
+# Log file: D:/verilog_practice/project_line_buffer_2/vivado.log
+# Journal file: D:/verilog_practice/project_line_buffer_2\vivado.jou
+# Running On: LAPTOP-D2TRK901, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 33719 MB
+#-----------------------------------------------------------
+start_gui
+open_project D:/verilog_practice/project_line_buffer_2/project_line_buffer_2.xpr
+update_compile_order -fileset sources_1
+close_project
+open_project D:/verilog_practice/project_ov7670_line_buffer/project_ov7670_line_buffer.xpr
+update_compile_order -fileset sources_1
