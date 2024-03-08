@@ -125,7 +125,7 @@ clock_PLL_100_50_25MHz clock_PLL_100_50_25MHz(
   .resetn(reset), // Status and control signals            
   .locked(locked), 
   .clk_in1(clk) // Clock in ports, 100MHz input
-  );
+);
 
 // Buffer RAM IP
 buffer_RAM_12x131072 buffer_RAM_12x131072 (
