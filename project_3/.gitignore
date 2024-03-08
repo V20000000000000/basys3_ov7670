@@ -5,5 +5,8 @@ project.ip_user_files/
 project.run/
 project.sim/
 project.xpr
+*.jou
+*.log
+*.str
 
 
