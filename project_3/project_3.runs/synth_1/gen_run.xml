@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1709901554" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/camera_vga_display_top.dcp">
+  <File Type="PA-TCL" Name="camera_vga_display_top.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="camera_vga_display_top_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="camera_vga_display_top_reports.tcl"/>
+  <File Type="RDS-RDS" Name="camera_vga_display_top.vds"/>
+  <File Type="RDS-UTIL" Name="camera_vga_display_top_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="camera_vga_display_top_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="camera_vga_display_top.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="camera_vga_display_top_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="camera_vga_display_top_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/color_to_gray.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/ov7670_read.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_read.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_module_top.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_module_top.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_rom.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_rom.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/sccb_communication.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/sccb_communication.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/system_control_fsm.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/system_control_fsm.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/vga_control.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/vga_control.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/ov7670_vga_display-main_原理/camera_vga_display_top.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../camera_vga_display/camera_vga_display.srcs/sources_1/imports/ov7670_vga_display-main_原理/camera_vga_display_top.v"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="camera_vga_display_top"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="C:/Users/v9999/OneDrive/桌面/台科/專題/偏綠的鏡頭/ov7670_vga_display-main_原理/ov7670_vga.xdc"/>
+        <Attr Name="ImportTime" Val="1693383875"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/camera_vga_display_top.dcp">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="C:/Users/v9999/OneDrive/桌面/台科/專題/偏綠的鏡頭/7670_test_green_blur/7670_test111.srcs/utils_1/imports/synth_1/camera_vga_display_top.dcp"/>
+        <Attr Name="ImportTime" Val="1705044352"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="clock_PLL_100_50_25MHz"/>
+  <BlockFileSet Type="BlockSrcs" Name="buffer_RAM_12x131072"/>
+  <BlockFileSet Type="BlockSrcs" Name="line_bram"/>
+  <BlockFileSet Type="BlockSrcs" Name="line_bram_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="line_bram_2"/>
+</GenRun>

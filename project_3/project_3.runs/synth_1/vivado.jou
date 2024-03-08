@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2.1 (64-bit)
+# SW Build 4081461 on Thu Dec 14 12:24:51 MST 2023
+# IP Build 4080415 on Thu Dec 14 21:01:57 MST 2023
+# SharedData Build 4077621 on Mon Dec 11 00:23:44 MST 2023
+# Start of session at: Fri Mar  8 20:39:18 2024
+# Process ID: 25552
+# Current directory: D:/verilog_practice/project_3/project_3.runs/synth_1
+# Command line: vivado.exe -log camera_vga_display_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source camera_vga_display_top.tcl
+# Log file: D:/verilog_practice/project_3/project_3.runs/synth_1/camera_vga_display_top.vds
+# Journal file: D:/verilog_practice/project_3/project_3.runs/synth_1\vivado.jou
+# Running On: LAPTOP-D2TRK901, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 33719 MB
+#-----------------------------------------------------------
+source camera_vga_display_top.tcl -notrace
