@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "D:/verilog_practice/project_3/project_3.runs/impl_1/camera_vga_display_top.tcl"
+  variable script "D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/impl_1/camera_vga_display_top.tcl"
   variable category "vivado_impl"
 }
 
@@ -132,21 +132,21 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir D:/verilog_practice/project_3/project_3.cache/wt [current_project]
-  set_property parent.project_path D:/verilog_practice/project_3/project_3.xpr [current_project]
-  set_property ip_output_repo D:/verilog_practice/project_3/project_3.cache/ip [current_project]
+  set_property webtalk.parent_dir D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.cache/wt [current_project]
+  set_property parent.project_path D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.xpr [current_project]
+  set_property ip_output_repo D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet D:/verilog_practice/project_3/project_3.runs/synth_1/camera_vga_display_top.dcp
-  read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xci
-  read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072.xci
-  read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram/line_bram.xci
-  read_ip -quiet d:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram_1/line_bram_1.xci
-  read_ip -quiet d:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram_2/line_bram_2.xci
+  add_files -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/camera_vga_display_top.dcp
+  read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xci
+  read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072.xci
+  read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram/line_bram.xci
+  read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram_1/line_bram_1.xci
+  read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram_2/line_bram_2.xci
 OPTRACE "read constraints: implementation" START { }
-  read_xdc D:/verilog_practice/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc
+  read_xdc D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }

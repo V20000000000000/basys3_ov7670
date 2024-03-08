@@ -75,7 +75,7 @@ vga_control vga_control(
   .sys_clk(clk),
   .clk25(clk_25mhz),
   .reset(reset),
-  .ram_output_data({line_1, line_1, line_1}),
+  .ram_output_data({line_3, line_3, line_3}),
   .ready_display(ready_display),
   // to buffer RAM
   .read_RAM_address(read_address),
@@ -145,6 +145,10 @@ color_to_gray color_to_gray(
     .din(doutb),
     .dout(line_0)
 );
+
+//generate line_bram_enable
+assign line_bram_enable = (horizontal_address == ((0 <=horizontal_address) && (horizontal_address < 320)) ? 1 : 0);
+
 
 line_bram line_bram(
     // write from camera ov7670

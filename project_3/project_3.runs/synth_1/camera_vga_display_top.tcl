@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/verilog_practice/project_3/project_3.runs/synth_1/camera_vga_display_top.tcl"
+  variable script "D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/camera_vga_display_top.tcl"
   variable category "vivado_synth"
 }
 
@@ -80,42 +80,42 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/verilog_practice/project_3/project_3.cache/wt [current_project]
-set_property parent.project_path D:/verilog_practice/project_3/project_3.xpr [current_project]
+set_property webtalk.parent_dir D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.cache/wt [current_project]
+set_property parent.project_path D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo d:/verilog_practice/project_3/project_3.cache/ip [current_project]
+set_property ip_output_repo d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/new/color_to_gray.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_read.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_module_top.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_rom.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/sccb_communication.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/system_control_fsm.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/vga_control.v
-  D:/verilog_practice/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/camera_vga_display_top.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/new/color_to_gray.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_read.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_module_top.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/ov7670_setup_rom.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/sccb_communication.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/system_control_fsm.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/vga_control.v
+  D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_原理/camera_vga_display_top.v
 }
-read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xci
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz_board.xdc]
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xdc]
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz_ooc.xdc]
+read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xci
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz_board.xdc]
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz.xdc]
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/clock_PLL_100_50_25MHz/clock_PLL_100_50_25MHz_ooc.xdc]
 
-read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072.xci
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072_ooc.xdc]
+read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072.xci
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/buffer_RAM_12x131072/buffer_RAM_12x131072_ooc.xdc]
 
-read_ip -quiet D:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram/line_bram.xci
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/line_bram/line_bram_ooc.xdc]
+read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram/line_bram.xci
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/line_bram/line_bram_ooc.xdc]
 
-read_ip -quiet d:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram_1/line_bram_1.xci
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/line_bram_1/line_bram_1_ooc.xdc]
+read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram_1/line_bram_1.xci
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/line_bram_1/line_bram_1_ooc.xdc]
 
-read_ip -quiet d:/verilog_practice/project_3/project_3.srcs/sources_1/ip/line_bram_2/line_bram_2.xci
-set_property used_in_implementation false [get_files -all d:/verilog_practice/project_3/project_3.gen/sources_1/ip/line_bram_2/line_bram_2_ooc.xdc]
+read_ip -quiet D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/ip/line_bram_2/line_bram_2.xci
+set_property used_in_implementation false [get_files -all d:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.gen/sources_1/ip/line_bram_2/line_bram_2_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -126,12 +126,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc D:/verilog_practice/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc
-set_property used_in_implementation false [get_files D:/verilog_practice/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc]
+read_xdc D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc
+set_property used_in_implementation false [get_files D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/constrs_1/imports/ov7670_vga_display-main_原理/ov7670_vga.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental D:/verilog_practice/project_3/project_3.srcs/utils_1/imports/synth_1/camera_vga_display_top.dcp
+read_checkpoint -auto_incremental -incremental D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/utils_1/imports/synth_1/camera_vga_display_top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

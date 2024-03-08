@@ -33,6 +33,7 @@ reg [16:0] read_RAM_address_reg;
 
 wire [3:0] line_0;
 
+assign horizontal_address = hcount;
 assign read_RAM_address = read_RAM_address_reg;
 assign vga_red = vga_red_reg;
 assign vga_green = vga_green_reg;

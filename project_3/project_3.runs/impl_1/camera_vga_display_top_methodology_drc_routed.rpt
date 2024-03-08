@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2.1 (win64) Build 4081461 Thu Dec 14 12:24:51 MST 2023
-| Date         : Fri Mar  8 20:41:18 2024
+| Date         : Fri Mar  8 21:37:14 2024
 | Host         : LAPTOP-D2TRK901 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file camera_vga_display_top_methodology_drc_routed.rpt -pb camera_vga_display_top_methodology_drc_routed.pb -rpx camera_vga_display_top_methodology_drc_routed.rpx
 | Design       : camera_vga_display_top

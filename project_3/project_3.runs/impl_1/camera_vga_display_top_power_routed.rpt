@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.2.1 (win64) Build 4081461 Thu Dec 14 12:24:51 MST 2023
-| Date             : Fri Mar  8 20:41:19 2024
+| Date             : Fri Mar  8 21:37:14 2024
 | Host             : LAPTOP-D2TRK901 running 64-bit major release  (build 9200)
 | Command          : report_power -file camera_vga_display_top_power_routed.rpt -pb camera_vga_display_top_power_summary_routed.pb -rpx camera_vga_display_top_power_routed.rpx
 | Design           : camera_vga_display_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.193        |
+| Total On-Chip Power (W)  | 0.195        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.120        |
+| Dynamic (W)              | 0.121        |
 | Device Static (W)        | 0.073        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 84.0         |
@@ -53,20 +53,20 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.001 |        8 |       --- |             --- |
-| Slice Logic    |    <0.001 |     1008 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      435 |     20800 |            2.09 |
+| Slice Logic    |    <0.001 |     1011 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      433 |     20800 |            2.08 |
 |   CARRY4       |    <0.001 |       41 |      8150 |            0.50 |
-|   Register     |    <0.001 |      307 |     41600 |            0.74 |
+|   Register     |    <0.001 |      306 |     41600 |            0.74 |
 |   BUFG         |    <0.001 |        1 |        32 |            3.13 |
 |   F7/F8 Muxes  |    <0.001 |       18 |     32600 |            0.06 |
-|   Others       |     0.000 |       98 |       --- |             --- |
-| Signals        |     0.002 |      862 |       --- |             --- |
-| Block RAM      |     0.004 |     27.5 |        50 |           55.00 |
+|   Others       |     0.000 |      103 |       --- |             --- |
+| Signals        |     0.002 |      871 |       --- |             --- |
+| Block RAM      |     0.005 |     28.5 |        50 |           57.00 |
 | MMCM           |     0.106 |        1 |         5 |           20.00 |
 | DSPs           |    <0.001 |        1 |        90 |            1.11 |
 | I/O            |     0.007 |       40 |       106 |           37.74 |
 | Static Power   |     0.073 |          |           |                 |
-| Total          |     0.193 |          |           |                 |
+| Total          |     0.195 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -76,7 +76,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.018 |       0.007 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.019 |       0.009 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.071 |       0.059 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -150,7 +150,7 @@ Table of Contents
 +--------------------------+-----------+
 | Name                     | Power (W) |
 +--------------------------+-----------+
-| camera_vga_display_top   |     0.120 |
+| camera_vga_display_top   |     0.121 |
 |   buffer_RAM_12x131072   |     0.003 |
 |     U0                   |     0.003 |
 |       inst_blk_mem_gen   |     0.003 |
