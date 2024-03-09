@@ -76,6 +76,7 @@ vga_control vga_control(
   .clk25(clk_25mhz),
   .reset(reset),
   .ram_output_data({line_3, line_3, line_3}),
+  .ram_output_data_1({line_0, line_0, line_0}),
   .ready_display(ready_display),
   // to buffer RAM
   .read_RAM_address(read_address),

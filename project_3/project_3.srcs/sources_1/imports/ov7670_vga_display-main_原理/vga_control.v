@@ -8,6 +8,7 @@ module vga_control(
     input wire clk25,  // 25 MHz for VGA 640X480
     input wire reset,
     input wire [11:0] ram_output_data, // RRRR_GGGG_BBBB from buffer RAM
+    input wire [11:0] ram_output_data_1, // RRRR_GGGG_BBBB from buffer RAM
     input wire ready_display,  // Ready to display signal
     // read address for buffer RAM  
     output wire [16:0] read_RAM_address, 
@@ -72,6 +73,21 @@ always @(posedge clk25 or negedge reset) begin
                 vga_blue_reg[3:0] <= #1 (ram_output_data[3:0]);
             // end
             
+            read_RAM_address_reg <= #1 hcount + 320*vcount + 1;
+            end
+        end
+        else if (hcount > 320 && hcount < 640 && vcount < 240) begin
+            if (testmode) begin
+                vga_red_reg <= #1 4'b0111;
+                vga_green_reg <= #1 4'b0111;
+                vga_blue_reg <= #1 4'b0111; 
+            end
+            else begin                
+                vga_red_reg[3:0] <= #1 (ram_output_data_1[11:8]);
+                vga_green_reg[3:0] <= #1 (ram_output_data_1[7:4]);
+                vga_blue_reg[3:0] <= #1 (ram_output_data_1[3:0]);
+            // end
+
             read_RAM_address_reg <= #1 hcount + 320*vcount + 1;
             end
         end
