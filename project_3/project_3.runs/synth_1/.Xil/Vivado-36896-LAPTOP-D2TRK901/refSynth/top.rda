@@ -1,158 +1,0 @@
-Data_For_RDAFlowver5.0
-	top levelµJ
-camera_vga_display_top«
-LinkDesign_Blackboxes0
-clock_PLL_100_50_25MHzclock_PLL_100_50_25MHz
-line_bram_1line_bram_1
-line_bram_2line_bram_2
-	line_bram	line_bram,
-buffer_RAM_12x131072buffer_RAM_12x131072‰+
-synthFileNamesJ
-10DD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/BRAM_SINGLE_MACRO.vhdG
-11AD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/BRAM_TDP_MACRO.vhdK
-12ED:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/COUNTER_LOAD_MACRO.vhdI
-13CD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/COUNTER_TC_MACRO.vhdI
-14CD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/EQ_COMPARE_MACRO.vhdF
-20@D:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/ADDSUB_MACRO.vM
-15GD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhdH
-21BD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/BRAM_SDP_MACRO.vH
-16BD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/FIFO_SYNC_MACRO.vhdK
-22ED:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.vC
-17=D:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/MACC_MACRO.vhdC
-18=D:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/MULT_MACRO.vhdH
-23BD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/BRAM_TDP_MACRO.vG
-19AD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/ADDMACC_MACRO.vL
-24FD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/COUNTER_LOAD_MACRO.vJ
-25DD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/COUNTER_TC_MACRO.vD
-30>D:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/MULT_MACRO.v
-NumFileNames60J
-26DD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/EQ_COMPARE_MACRO.vJ
-31DD:/Xilinx/Vivado/2023.2/data/vhdl/src/unisims/retarget/MULT18X18.vhd=
-18D:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_VCOMP.vhdN
-27HD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/FIFO_DUALCLOCK_MACRO.vK
-32ED:/Xilinx/Vivado/2023.2/data/vhdl/src/unisims/retarget/MULT18X18S.vhd<
-27D:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_VPKG.vhdI
-28CD:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/FIFO_SYNC_MACRO.v@
-33:D:/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv:
-35D:/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.vD
-29>D:/Xilinx/Vivado/2023.2/data/verilog/src/unimacro/MACC_MACRO.vF
-34@D:/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv=
-48D:/Xilinx/Vivado/2023.2/scripts/rt/data/internal_cells.võ
-35îD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/.Xil/Vivado-37176-LAPTOP-D2TRK901/realtime/clock_PLL_100_50_25MHz_stub.vg
-40aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/new/color_to_gray.v3
-5.D:/Xilinx/Vivado/2023.2/scripts/rt/data/BUFT.vô
-36íD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/.Xil/Vivado-37176-LAPTOP-D2TRK901/realtime/buffer_RAM_12x131072_stub.vâ
-41ÇD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/ov7670_read.vF
-6AD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/unimacro_VCOMP.vhdé
-37áD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/.Xil/Vivado-37176-LAPTOP-D2TRK901/realtime/line_bram_stub.vä
-42ÉD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/ov7670_setup.vE
-7@D:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/ADDMACC_MACRO.vhdê
-38âD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/.Xil/Vivado-37176-LAPTOP-D2TRK901/realtime/line_bram_1_stub.vï
-43éD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/ov7670_setup_module_top.vD
-8?D:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/ADDSUB_MACRO.vhdê
-39âD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/.Xil/Vivado-37176-LAPTOP-D2TRK901/realtime/line_bram_2_stub.vé
-44áD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/ov7670_setup_rom.vg
-50aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/std_1164.vhdF
-9AD:/Xilinx/Vivado/2023.2/data/vhdl/src/unimacro/BRAM_SDP_MACRO.vhdê
-45âD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/sccb_communication.vg
-51aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/standard.vhdê
-46âD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/system_control_fsm.vj
-52dD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/numeric_std.vhdâ
-47ÇD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/vga_control.ve
-53_D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/textio.vhdî
-48çD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.srcs/sources_1/imports/ov7670_vga_display-main_ÂéüÁêÜ/camera_vga_display_top.vg
-54aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/timing_p.vhd7
-491D:/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_VCOMP.vhdg
-55aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/timing_b.vhdg
-56aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/prmtvs_p.vhdg
-57aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/prmtvs_b.vhdg
-58aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/syn_arit.vhdg
-59aD:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_3/project_3.runs/synth_1/1993/src/syn_unsi.vhd…
-
-synthStatsT
-caseNotFullNoDefault
-L61
-Mnullname
-F42
-OOV7670_SETUP_FSM_state]
-asyncResetRegAtDSPOutput
-L48
-Mnullname
-F47 
-O\vga_control/vcount_reg[0] ]
-asyncResetRegAtDSPOutput
-L36
-Mnullname
-F47 
-O\vga_control/hcount_reg[0] ]
-asyncResetRegAtDSPOutput
-L48
-Mnullname
-F47 
-O\vga_control/vcount_reg[0] ]
-asyncResetRegAtDSPOutput
-L36
-Mnullname
-F47 
-O\vga_control/hcount_reg[0] i
-BRAMNoOutReg
-L12
-Mnullname
-F448
-O3\ov7670_setup_module_top/ov7670_setup_rom/dout_reg Ä
-ElaboratedNamesForRQSÊ
-DSP_RAMp
-151553f {system_control_fsm/start_ov7670_hw_setup_reg_i} {system_control_fsm/start_ov7670_hw_setup_reg_i__0} `
-139265V {system_control_fsm/ready_display_reg_i} {system_control_fsm/ready_display_reg_i__0} )
-413697 {system_control_fsm/timer1_i} _
-184321U {system_control_fsm/CONTROL_FSM_state_i__2} {system_control_fsm/FSM_return_state_i} #
-237570 {vga_control/vcount1_i} #
-221186 {vga_control/hcount1_i} G
-126983= {ov7670_setup_module_top/sccb_communication/ready_reg_i__0} Ç
-299015˜ {ov7670_setup_module_top/sccb_communication/FSM_return_state_i} {ov7670_setup_module_top/sccb_communication/FSM_return_state_i__0} {ov7670_setup_module_top/sccb_communication/bit_index_i__0} {ov7670_setup_module_top/sccb_communication/byte_counter_i__0} {ov7670_setup_module_top/sccb_communication/load_txm_byte_i__1} {ov7670_setup_module_top/sccb_communication/timer_i__0} C
-3645499 {ov7670_setup_module_top/ov767_setup/rom_select_reg0_i} 4
-143361* {system_control_fsm/start_capture_reg_i} E
-688135; {ov7670_setup_module_top/sccb_communication/bit_index0_i} M
-671751C {ov7670_setup_module_top/sccb_communication/SCCB_FSM_state0_i__0} n
-114696d {color_to_gray/dout0_i} {color_to_gray/dout1_i} {color_to_gray/dout2_i} {color_to_gray/dout2_i__0} `
-147457V {system_control_fsm/control_state_reg_i} {system_control_fsm/control_state_reg_i__0} .
-327683$ {ov7670_read/save_address_next0_i} &
-245762 {vga_control/vsync_reg0_i} ~
-131079t {ov7670_setup_module_top/sccb_communication/SIOC_reg_i} {ov7670_setup_module_top/sccb_communication/SIOC_reg_i__0} <
-491583 {ov7670_setup_module_top/ov7670_setup_rom/dout_i} H
-454663> {ov7670_setup_module_top/sccb_communication/byte_counter0_i} x
-290821n {ov7670_setup_module_top/ov767_setup/OV7670_SETUP_FSM_state_i} {ov7670_setup_module_top/ov767_setup/timer_i} A
-8888397 {ov7670_setup_module_top/sccb_communication/timer1_i} :
-5120050 {ov7670_setup_module_top/ov767_setup/timer1_i} F
-135175< {ov7670_setup_module_top/sccb_communication/SIOD_reg_i__0} <
-2498612 {ov7670_setup_module_top/ov767_setup/done_reg_i} }
-307202s {vga_control/read_RAM_address_reg0_i} {vga_control/read_RAM_address_reg1_i} {vga_control/read_RAM_address_reg2_i} "
-233474 {vga_control/vcount_i} æ
-blackBoxInfo0
-clock_PLL_100_50_25MHzclock_PLL_100_50_25MHz
-line_bram_1line_bram_1
-line_bram_2line_bram_2
-	line_bram	line_bram,
-buffer_RAM_12x131072buffer_RAM_12x131072Ÿ
-synth_design
-isIncremental0
-Runtime0
-Threads used2≠
-args§-define default::[not_specified] -verilog_define default::[not_specified] -vhdl_define default::[not_specified] -top  camera_vga_display_top -part  xc7a35tcpg236-1 
-resynthPerc0.00
-Cputime0
-blackBoxPercinf
-	directive ú
-synth_design_metrics$
-mismatchedAddSubOperatorWidths-1
-lowMaxFanout-1
-NumUnregisteredPorts0
-caseNotFullNoDefault1
-	smallSrls-1
-srlsWithResetLogic-1
-shallowRAMWithAttribute-1
-hierMFO0
-bigRAMs-1
-NetsWithMixedFanouts-1
-DSPsWithKeep0
-RQS_Results

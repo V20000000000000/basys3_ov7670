@@ -1,10 +1,10 @@
-project.cache/
-project.gen/
-project.hw/
-project.ip_user_files/
-project.run/
-project.sim/
-project.xpr
+project_3.cache/
+project_3.gen/
+project_3.hw/
+project_3.ip_user_files/
+project_3.run/
+project_3.sim/
+project_3.xpr
 *.jou
 *.log
 *.str
