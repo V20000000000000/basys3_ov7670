@@ -1,2 +1,0 @@
-line_bram.v,verilog,xil_defaultlib,../../../../project_3.gen/sources_1/ip/line_bram/sim/line_bram.v,
-glbl.v,Verilog,xil_defaultlib,glbl.v
