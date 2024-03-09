@@ -53,7 +53,7 @@ wire [3:0] line_3;
 
 wire line_bram_enable;
 
-wire horizontal_address;
+wire [9:0] horizontal_address;
 
 assign ov7670_xclk = clk_25mhz;
 
@@ -147,18 +147,17 @@ color_to_gray color_to_gray(
 );
 
 //generate line_bram_enable
-assign line_bram_enable = (horizontal_address == ((0 <=horizontal_address) && (horizontal_address < 320)) ? 1 : 0);
-
+assign line_bram_enable = ((0 <=horizontal_address) && (horizontal_address < 320)) ? 1 : 0;
 
 line_bram line_bram(
     // write from camera ov7670
   .clka(clk_25mhz),    // input wire clka
   .wea(line_bram_enable),      // input wire [0 : 0] wea
-  .addra(horizontal_address),  // input wire [16 : 0] addra
+  .addra(horizontal_address[8:0]),  // input wire [16 : 0] addra
   .dina(line_0),    // input wire [11 : 0] dina
   // read to VGA output
   .clkb(clk_25mhz),    // input wire clkb   
-  .addrb(horizontal_address),  // input wire [16 : 0] addrb
+  .addrb(horizontal_address[8:0]),  // input wire [16 : 0] addrb
   .doutb(line_1)  // output wire [11 : 0] doutb
 ); 
 
@@ -166,11 +165,11 @@ line_bram_1 line_bram_1(
     // write from camera ov7670
   .clka(clk_25mhz),    // input wire clka
   .wea(line_bram_enable),      // input wire [0 : 0] wea
-  .addra(horizontal_address),  // input wire [16 : 0] addra
+  .addra(horizontal_address[8:0]),  // input wire [16 : 0] addra
   .dina(line_1),    // input wire [11 : 0] dina
   // read to VGA output
   .clkb(clk_25mhz),    // input wire clkb   
-  .addrb(horizontal_address),  // input wire [16 : 0] addrb
+  .addrb(horizontal_address[8:0]),  // input wire [16 : 0] addrb
   .doutb(line_2)  // output wire [11 : 0] doutb
 ); 
 
@@ -178,11 +177,11 @@ line_bram_2 line_bram_2(
     // write from camera ov7670
   .clka(clk_25mhz),    // input wire clka
   .wea(line_bram_enable),      // input wire [0 : 0] wea
-  .addra(horizontal_address),  // input wire [16 : 0] addra
+  .addra(horizontal_address[8:0]),  // input wire [16 : 0] addra
   .dina(line_2),    // input wire [11 : 0] dina
   // read to VGA output
   .clkb(clk_25mhz),    // input wire clkb   
-  .addrb(horizontal_address),  // input wire [16 : 0] addrb
+  .addrb(horizontal_address[8:0]),  // input wire [16 : 0] addrb
   .doutb(line_3)  // output wire [11 : 0] doutb
 ); 
 

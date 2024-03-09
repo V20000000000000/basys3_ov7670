@@ -18,7 +18,7 @@ module vga_control(
     // HSYNC and VSYNC 
     output wire vga_hsync,
     output wire vga_vsync,
-    output wire horizontal_address,
+    output wire [9:0] horizontal_address,
     input wire testmode
 );
 
@@ -33,7 +33,7 @@ reg [16:0] read_RAM_address_reg;
 
 wire [3:0] line_0;
 
-assign horizontal_address = hcount;
+assign horizontal_address = hcount[9:0];
 assign read_RAM_address = read_RAM_address_reg;
 assign vga_red = vga_red_reg;
 assign vga_green = vga_green_reg;
