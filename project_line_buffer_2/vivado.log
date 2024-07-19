@@ -3,10 +3,10 @@
 # SW Build 4081461 on Thu Dec 14 12:24:51 MST 2023
 # IP Build 4080415 on Thu Dec 14 21:01:57 MST 2023
 # SharedData Build 4077621 on Mon Dec 11 00:23:44 MST 2023
-# Start of session at: Sun Mar  3 22:05:41 2024
-# Process ID: 28312
+# Start of session at: Thu Jul  4 14:25:03 2024
+# Process ID: 26340
 # Current directory: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent33684 D:\c_Dpractice\basys3_ov7670\basys3_ov7670\project_line_buffer_2\project_line_buffer_2.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28680 D:\c_Dpractice\basys3_ov7670\basys3_ov7670\project_line_buffer_2\project_line_buffer_2.xpr
 # Log file: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2/vivado.log
 # Journal file: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2\vivado.jou
 # Running On: LAPTOP-D2TRK901, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 33719 MB
@@ -27,6 +27,8 @@ WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo-z7-10:part0:1.
 WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo-z7-20:part0:1.2 available at D:/Xilinx/Vivado/2023.2/data/boards/board_files/zybo-z7-20/A.0/board.xml as part xc7z020clg400-1 specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:1.0 available at D:/Xilinx/Vivado/2023.2/data/boards/board_files/zybo/B.3/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:2.0 available at D:/Xilinx/Vivado/2023.2/data/boards/board_files/zybo/B.4/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part tul.com.tw:pynq-z2:part0:1.0 available at C:/Users/v9999/AppData/Roaming/Xilinx/Vivado/2023.2.1/xhub/board_store/xilinx_board_store/XilinxBoardStore/Vivado/2023.2.1/boards/TUL/pynq-z2/A.0/1.0/board.xml as part xc7z020clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part tul.com.tw:pynqzu:part0:1.1 available at C:/Users/v9999/AppData/Roaming/Xilinx/Vivado/2023.2.1/xhub/board_store/xilinx_board_store/XilinxBoardStore/Vivado/2023.2.1/boards/TUL/pynqzu/1.1/1.1/board.xml as part xczu5eg-sfvc784-1-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.6 available at D:/Xilinx/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/kcu105/1.6/board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.7 available at D:/Xilinx/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/kcu105/1.7/board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu116:part0:1.4 available at D:/Xilinx/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/kcu116/1.4/board.xml as part xcku5p-ffvb676-2-e specified in board_part file is either invalid or not available
@@ -94,7 +96,7 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2023.2/data/ip'.
-open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1630.109 ; gain = 369.656
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1601.395 ; gain = 507.188
 update_compile_order -fileset sources_1
 exit
-INFO: [Common 17-206] Exiting Vivado at Sun Mar  3 22:06:11 2024...
+INFO: [Common 17-206] Exiting Vivado at Thu Jul  4 19:42:14 2024...

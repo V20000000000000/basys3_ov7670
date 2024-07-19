@@ -3,10 +3,10 @@
 # SW Build 4081461 on Thu Dec 14 12:24:51 MST 2023
 # IP Build 4080415 on Thu Dec 14 21:01:57 MST 2023
 # SharedData Build 4077621 on Mon Dec 11 00:23:44 MST 2023
-# Start of session at: Sun Mar  3 22:05:41 2024
-# Process ID: 28312
+# Start of session at: Thu Jul  4 14:25:03 2024
+# Process ID: 26340
 # Current directory: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent33684 D:\c_Dpractice\basys3_ov7670\basys3_ov7670\project_line_buffer_2\project_line_buffer_2.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28680 D:\c_Dpractice\basys3_ov7670\basys3_ov7670\project_line_buffer_2\project_line_buffer_2.xpr
 # Log file: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2/vivado.log
 # Journal file: D:/c_Dpractice/basys3_ov7670/basys3_ov7670/project_line_buffer_2\vivado.jou
 # Running On: LAPTOP-D2TRK901, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 33719 MB
