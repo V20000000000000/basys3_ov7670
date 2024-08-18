@@ -37,6 +37,17 @@ module top(
             r_25MHz <= r_25MHz + 1;
     end
 
+    // Auto reset control for CCL
+    always @(posedge w_25MHz or posedge reset)
+    begin
+        if (reset)  
+            ccl_reset <= 1'b1;  // Reset CCL when main reset is asserted
+        else if (~vsync)        // Assert reset on the falling edge of vsync
+            ccl_reset <= 1'b1;
+        else 
+            ccl_reset <= 1'b0;  // Deassert reset after the falling edge of vsync
+    end
+
     assign w_25MHz = r_25MHz[1];  // Divides the 100MHz clock by 4 to get 25MHz
 
     // Pixel Address Generation
@@ -54,7 +65,7 @@ module top(
     // Instantiate Connected Component Labeling module
     connected_component_labeling connected_component_labeling_inst(
         .clk(w_25MHz),
-        .reset(reset),
+        .reset(ccl_reset),
         .x(w_x >> 1),           // Scale x-coordinate to match 320x240 resolution
         .y(w_y >> 1),           // Scale y-coordinate to match 320x240 resolution
         .video_on(w_video_on),
@@ -71,7 +82,7 @@ module top(
     end
 
     // Assign RGB output (scaling label to 12-bit color)
-    assign rgb = {label_reg, 5'b0};  // Assign the 7-bit label to the most significant bits, with zero padding
+    assign rgb = {5'b0, label_reg};  // Assign the 7-bit label to the most significant bits, with zero padding
 
 endmodule
 
