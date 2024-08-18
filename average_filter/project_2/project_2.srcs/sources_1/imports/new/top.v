@@ -59,7 +59,7 @@ module top(
     //     .video_on(w_video_on), 
     //     .rgb_in(rgb_filter_in), 
     //     .rgb_out(rgb_filter_out)   
-    // );      
+    // );  
  
     // Buffer RGB
     always @(posedge w_25MHz)
@@ -67,7 +67,7 @@ module top(
         if (reset)  
             rgb_reg <= 12'h0;       
         else if (w_video_on)
-            rgb_reg <= rgb_filter_in;      
+            rgb_reg <= rgb_filter_in;   
         grag_reg <= (rgb_reg[11:8] * 77 + rgb_reg[7:4] * 151 + rgb_reg[3:0] * 28) >> 8;
     end
 
