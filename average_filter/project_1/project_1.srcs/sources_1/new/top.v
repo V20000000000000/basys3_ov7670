@@ -15,6 +15,7 @@ module top(
     wire [16:0] pixel_addr;
     wire [11:0] data;
     wire w_25MHz;
+    reg ccl_reset;   // New signal for CCL reset
 
     // Instantiating VGA Controller
     vga_controller vc(
@@ -42,7 +43,7 @@ module top(
     assign pixel_addr = ((w_x >> 1) + (w_y >> 1) * 320) % 76800;
 
     // Block Memory Generator Instance
-   blk_mem_gen_1 blk_mem_gen_1_inst(
+    blk_mem_gen_1 blk_mem_gen_1_inst(
        .clka(w_25MHz),      // Use the 25MHz clock generated earlier
        .wea(0),
        .addra(pixel_addr),
@@ -50,17 +51,28 @@ module top(
        .douta(rgb_filter_in)
    );
 
-    // Instantiating Average Filter
-    // average_filter af(
-    //     .clk(w_25MHz), 
-    //     .reset(reset), 
-    //     .x(w_x), 
-    //     .y(w_y), 
-    //     .video_on(w_video_on), 
-    //     .rgb_in(rgb_filter_in), 
-    //     .rgb_out(rgb_filter_out)   
-    // );      
- 
+    // Instantiating Connected Component Labeling
+    connected_component_labeling ccl (
+        .clk(w_25MHz),
+        .reset(ccl_reset),  // Use the new ccl_reset signal
+        .x(w_x),
+        .y(w_y),
+        .video_on(w_video_on),
+        .pixel_in(1'b1),   // Assuming pixel input logic is elsewhere
+        .final_label_out()
+    );
+
+    // Auto reset control for CCL
+    always @(posedge w_25MHz or posedge reset)
+    begin
+        if (reset)  
+            ccl_reset <= 1'b1;  // Reset CCL when main reset is asserted
+        else if (~vsync)        // Assert reset on the falling edge of vsync
+            ccl_reset <= 1'b1;
+        else 
+            ccl_reset <= 1'b0;  // Deassert reset after the falling edge of vsync
+    end
+
     // Buffer RGB
     always @(posedge w_25MHz)
     begin
@@ -74,6 +86,7 @@ module top(
     assign rgb = rgb_reg;  //{grag_reg, grag_reg, grag_reg}; 
 
 endmodule
+
 
 
 
