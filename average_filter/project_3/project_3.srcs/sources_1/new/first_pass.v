@@ -70,7 +70,11 @@ module connected_component_labeling (
                     up_label == 7'b0000000 && right_up_label == 7'b0000000) begin
                     label_temp <= new_label;
                     new_label <= new_label + 1;
-                end else begin
+                end else if (left_label == left_up_label == 7'b0000000 &&
+                    up_label == 7'b0000000 && right_up_label == 7'b0000000)
+
+                else
+                begin
                     // Case 2 & 3: Assign the minimum label among neighbors
                     min_label = left_label;  
                     if (left_up_label != 7'b0000000 && (min_label == 7'b0000000 || left_up_label < min_label))
@@ -84,13 +88,13 @@ module connected_component_labeling (
                     
                     // Record label equivalence if necessary
                     if (left_label != 7'b0000000 && left_label != min_label)
-                        label_equivalence[left_label] <= min_label;
+                        label_equivalence[left_label] = min_label;
                     if (left_up_label != 7'b0000000 && left_up_label != min_label)
-                        label_equivalence[left_up_label] <= min_label;
+                        label_equivalence[left_up_label] = min_label;
                     if (up_label != 7'b0000000 && up_label != min_label)
-                        label_equivalence[up_label] <= min_label;
+                        label_equivalence[up_label] = min_label;
                     if (right_up_label != 7'b0000000 && right_up_label != min_label)
-                        label_equivalence[right_up_label] <= min_label;
+                        label_equivalence[right_up_label] = min_label;
                 end
             end else begin
                 // If pixel input is 0, no label is assigned

@@ -11,10 +11,11 @@ module top(
     wire [6:0] final_label_wire;  // Use wire type instead of reg
     reg [11:0] rgb_reg;
     reg [6:0] label_reg;
-    wire [11:0] rgb_filter_in;
+    wire rgb_filter_in;
     wire [16:0] pixel_addr;
     wire [11:0] data;
     wire w_25MHz;
+    wire [11:0] mem_out;
     reg ccl_reset;
 
     // Instantiate VGA Controller
@@ -28,6 +29,9 @@ module top(
         .x(w_x), 
         .y(w_y)   
     );
+
+    // binariazation pixel in
+    assign rgb_filter_in = (mem_out == 0) ? 1'b0 : 1'b1;
 
     // Generate 25MHz clock from 100MHz clock
     reg [1:0] r_25MHz = 0;
@@ -60,17 +64,17 @@ module top(
         .wea(1'b0),            // No writing to this memory in this module
         .addra(pixel_addr),    // Address from pixel position
         .dina(12'b0),          // No data input (write disabled)
-        .douta(rgb_filter_in)  // Data output for pixel data
+        .douta(mem_out)  // Data output for pixel data
     );
 
     // Instantiate Connected Component Labeling module
     connected_component_labeling connected_component_labeling_inst(
         .clk(w_25MHz),
-        .reset(ccl_reset),
+        .reset(reset),
         .x(w_x >> 1),           // Scale x-coordinate to match 320x240 resolution
         .y(w_y >> 1),           // Scale y-coordinate to match 320x240 resolution
         .video_on(w_video_on),
-        .pixel_in(rgb_filter_in[0]),  // Assume using the least significant bit for pixel_in
+        .pixel_in(rgb_filter_in),  // Assume using the least significant bit for pixel_in
         .final_label_out(final_label_wire)  // Connect wire output to the module
     );
 
