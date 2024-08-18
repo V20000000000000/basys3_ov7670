@@ -15,6 +15,7 @@ module top(
     wire [16:0] pixel_addr;
     wire [11:0] data;
     wire w_25MHz;
+    reg ccl_reset;
 
     // Instantiate VGA Controller
     vga_controller vc(
