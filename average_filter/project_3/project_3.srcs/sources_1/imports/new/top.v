@@ -17,6 +17,7 @@ module top(
     wire w_25MHz;
     wire [11:0] mem_out;
     reg ccl_reset;
+    wire frame_done;
 
     // Instantiate VGA Controller
     vga_controller vc(
@@ -27,11 +28,12 @@ module top(
         .vsync(vsync), 
         .p_tick(w_p_tick), 
         .x(w_x), 
-        .y(w_y)   
+        .y(w_y),
+        .frame_done(frame_done) 
     );
 
     // binariazation pixel in
-    assign rgb_filter_in = (mem_out == 0) ? 1'b0 : 1'b1;
+    assign rgb_filter_in = (mem_out == 12'b0) ? 1'b0 : 1'b1;
 
     // Generate 25MHz clock from 100MHz clock
     reg [1:0] r_25MHz = 0;
@@ -40,17 +42,6 @@ module top(
             r_25MHz <= 0;
         else
             r_25MHz <= r_25MHz + 1;
-    end
-
-    // Auto reset control for CCL
-    always @(posedge w_25MHz or posedge reset)
-    begin
-        if (reset)  
-            ccl_reset <= 1'b1;  // Reset CCL when main reset is asserted
-        else if (~vsync)        // Assert reset on the falling edge of vsync
-            ccl_reset <= 1'b1;
-        else 
-            ccl_reset <= 1'b0;  // Deassert reset after the falling edge of vsync
     end
 
     assign w_25MHz = r_25MHz[1];  // Divides the 100MHz clock by 4 to get 25MHz
@@ -70,7 +61,7 @@ module top(
     // Instantiate Connected Component Labeling module
     connected_component_labeling connected_component_labeling_inst(
         .clk(w_25MHz),
-        .reset(reset),
+        .reset(frame_done),
         .x(w_x >> 1),           // Scale x-coordinate to match 320x240 resolution
         .y(w_y >> 1),           // Scale y-coordinate to match 320x240 resolution
         .video_on(w_video_on),
@@ -79,16 +70,16 @@ module top(
     );
 
     // Buffer RGB
-    always @(posedge w_25MHz) begin
-        if (reset)
-            label_reg <= 7'h0;   
-        else if (w_video_on)
-            label_reg <= final_label_wire;  // Update with the final label from CCL module
-    end
+    // always @(posedge w_25MHz) begin
+    //     if (reset)
+    //         label_reg <= 7'h0;   
+    //     else if (w_video_on)
+    //         label_reg <= final_label_wire;  // Update with the final label from CCL module
+    // end
 
     // Assign RGB output (scaling label to 12-bit color)
-    assign rgb = {5'b0, label_reg};  // Assign the 7-bit label to the most significant bits, with zero padding
-
+    //assign rgb = {5'b0, label_reg};  // Assign the 7-bit label to the most significant bits, with zero padding
+    assign rgb = final_label_wire;
 endmodule
 
 
