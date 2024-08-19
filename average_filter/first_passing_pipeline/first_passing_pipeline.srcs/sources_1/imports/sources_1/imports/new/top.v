@@ -54,7 +54,7 @@ module top(
     blk_mem_gen_1 blk_mem_gen_1_inst (
         .clka(w_25MHz),
         .wea(wea),
-        .addra(pixel_addr_0),
+        .addra(pixel_addr),
         .dina(data),
         .douta(rgb_pixel_in)
     );
@@ -70,7 +70,7 @@ module top(
 
     assign w_25MHz = r_25MHz[1];  // Divides the 100MHz clock by 4 to get 25MHz
 
-    assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 1 : 0;
+    assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // Instantiate line_buffer module
     line_buffer line_buffer_inst(
@@ -90,7 +90,7 @@ module top(
     );
 
 
-    assign rgb = {3'b000,label_0, 2'b00};
+    assign rgb = {5'b00000,label_0};
 
 endmodule
 
