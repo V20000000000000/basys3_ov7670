@@ -22,6 +22,7 @@
 
 module write_mem(
     input wire clk,
+    input wire clk_100mhz, // 100 MHz clock
     input wire reset,
     input wire [16:0] pixel_addr,
     input wire [6:0] smallest_label_in,
@@ -56,9 +57,12 @@ module write_mem(
         .ena(1'b1)                 // Enable signal
     );
 
-    always @(posedge clk) begin
+    always @(posedge clk_100mhz) begin
         hsync_out <= hsync_in;
         vsync_out <= vsync_in;
+    end
+
+    always @(posedge clk) begin
         if (reset) begin
             label_reg <= 12'b0;
             smallest_label <= 7'b0000000;

@@ -75,6 +75,7 @@ module top(
     // Instantiate find_address module
     find_address find_address_inst(
         .clk(w_25MHz),
+        .clk_100mhz(clk_100MHz),
         .reset(reset),
         .x(w_x >> 1),
         .y(w_y >> 1),
@@ -115,12 +116,29 @@ module top(
         .vsync_out(vsync_2)
     );
 
-    assign hsync = hsync_2;
-    assign vsync = vsync_2;
+    // Implementing 8-clock cycle delay for hsync and vsync
+    reg [7:0] hsync_shift_reg, vsync_shift_reg;
+
+    always @(posedge clk_100MHz or posedge reset) begin
+        if (reset) begin
+            hsync_shift_reg <= 8'b0;
+            vsync_shift_reg <= 8'b0;
+        end else begin
+            hsync_shift_reg <= {hsync_shift_reg[6:0], hsync_0};
+            vsync_shift_reg <= {vsync_shift_reg[6:0], vsync_0};
+        end
+    end
+
+    assign hsync = hsync_shift_reg[7];
+    assign vsync = vsync_shift_reg[7];
+
+    //assign hsync = hsync_2;
+    //assign vsync = vsync_2;
 
     // Instantiate write_mem module
     // write_mem write_mem_inst(
     //     .clk(w_25MHz),
+    //     .clk_100mhz(clk_100MHz),
     //     .reset(reset),
     //     .pixel_addr(pixel_addr),
     //     .smallest_label_in(label_0),
@@ -138,7 +156,7 @@ module top(
     //     .vsync_out(vsync)
     // );
 
-    assign rgb = {5'b00000, label_0};
+    assign rgb = {5'b00000,label_0};
 
 endmodule
 

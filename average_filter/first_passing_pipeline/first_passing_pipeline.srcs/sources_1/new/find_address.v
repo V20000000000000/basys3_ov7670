@@ -1,5 +1,6 @@
 module find_address (
     input wire clk,
+    input wire clk_100mhz, // 100 MHz clock
     input wire reset,
     input wire [8:0] x,         // 9 bits for 320 pixels width
     input wire [7:0] y,         // 8 bits for 240 pixels height
@@ -16,9 +17,12 @@ module find_address (
     output reg [7:0] y_out // 8 bits for 240 pixels height
 );
 
-    always @(posedge clk) begin
+    always @(posedge clk_100mhz) begin
         hsync_out <= hsync_in;
         vsync_out <= vsync_in;
+    end
+
+    always @(posedge clk) begin
         pixel_addr_out <= pixel_addr_in;
         if (reset) begin
             binarize_pixel_out <= 0;
@@ -26,9 +30,9 @@ module find_address (
             y_out <= 0;
         end
         else begin
+            x_out <= x;
+            y_out <= y;
             if (video_on) begin
-                x_out <= x;
-                y_out <= y;
                 if (rgb_pixel_in == 12'b0) begin
                     binarize_pixel_out <= 0;
                 end
