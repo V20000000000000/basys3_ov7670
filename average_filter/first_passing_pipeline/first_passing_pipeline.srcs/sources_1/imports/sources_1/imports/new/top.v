@@ -89,6 +89,7 @@ module top(
     //     .equivalence_out(equivalence)
     // );
 
+
     // Instantiate buffer module
     buffer buffer_inst_0 (
         .pixel_in(binarize_pixel),
