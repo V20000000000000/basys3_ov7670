@@ -22,8 +22,6 @@
 
 `timescale 1ns / 1ps
 
-`timescale 1ns / 1ps
-
 module tb_min_label_selector;
 
     // Inputs
@@ -54,40 +52,20 @@ module tb_min_label_selector;
         // Wait for global reset
         #100;
 
-        // Test case 1: 4 2 3 1
-        left_label = 7'b0000100; // 4
-        left_up_label = 7'b0000010; // 2
-        up_label = 7'b0000011; // 3
-        right_up_label = 7'b0000001; // 1
-        #10;
-
-        // Test case 2: 7 5 9 2
-        left_label = 7'b0000111; // 7
-        left_up_label = 7'b0000101; // 5
-        up_label = 7'b0001001; // 9
-        right_up_label = 7'b0000010; // 2
-        #10;
-
-        // Test case 3: 0 0 0 0
+        // Test case 1: 0 7 8 6
         left_label = 7'b0000000; // 0
-        left_up_label = 7'b0000000; // 0
-        up_label = 7'b0000000; // 0
-        right_up_label = 7'b0000000; // 0
-        #10;
-
-        // Test case 4: 0 0 0 1
-        left_label = 7'b0000000; // 0
-        left_up_label = 7'b0000000; // 0
-        up_label = 7'b0000000; // 0
-        right_up_label = 7'b0000001; // 1
-        #10;
-
-        // Test case 5: 11 12 31 6
-        left_label = 7'b0001011; // 11
-        left_up_label = 7'b0001100; // 12
-        up_label = 7'b0011111; // 31
+        left_up_label = 7'b0000111; // 7
+        up_label = 7'b0001000; // 8
         right_up_label = 7'b0000110; // 6
+
         #10;
+        
+        // Test case 1: 6 8 6 5
+        left_label = 7'b0000110; // 6
+        left_up_label = 7'b0001000; // 8
+        up_label = 7'b0000110; // 6
+        right_up_label = 7'b0000101; // 5
+
         
         // Add more test cases as needed
     end

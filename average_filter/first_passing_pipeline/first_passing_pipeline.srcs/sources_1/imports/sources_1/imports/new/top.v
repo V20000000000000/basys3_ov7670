@@ -73,24 +73,37 @@ module top(
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // Instantiate line_buffer module
-    line_buffer line_buffer_inst(
-        .clk(w_25MHz),
-        .reset(reset),
+    // line_buffer line_buffer_inst(
+    //     .clk(w_25MHz),
+    //     .reset(reset),
+    //     .x(w_x >> 1),
+    //     .y(w_y >> 1),
+    //     .video_on(w_video_on),
+    //     .pixel_in(binarize_pixel),
+    //     .pixel_addr_in(pixel_addr),
+    //     .smallest_label_out(label_0),
+    //     .left_label_out(left_label),
+    //     .left_up_label_out(left_up_label),
+    //     .right_up_label_out(right_up_label),
+    //     .up_label_out(up_label),
+    //     .equivalence_out(equivalence)
+    // );
+
+    // Instantiate buffer module
+    buffer buffer_inst_0 (
+        .pixel_in(binarize_pixel),
         .x(w_x >> 1),
         .y(w_y >> 1),
-        .video_on(w_video_on),
-        .pixel_in(binarize_pixel),
-        .pixel_addr_in(pixel_addr),
-        .smallest_label_out(label_0),
         .left_label_out(left_label),
         .left_up_label_out(left_up_label),
-        .right_up_label_out(right_up_label),
         .up_label_out(up_label),
-        .equivalence_out(equivalence)
+        .right_up_label_out(right_up_label),
+        .current_label(final_label_out),
+        .new_label_out(label_0),
+        .state(state)
     );
 
-
-    assign rgb = {5'b00000,label_0};
+    assign rgb = {4'b0000,final_label_out, 1'b0};
 
 endmodule
 
