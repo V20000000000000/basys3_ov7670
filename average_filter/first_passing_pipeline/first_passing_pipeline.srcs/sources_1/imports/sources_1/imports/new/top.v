@@ -52,7 +52,7 @@ module top(
 
     // Instantiate blk_mem_gen_1
     blk_mem_gen_1 blk_mem_gen_1_inst (
-        .clka(w_25MHz),
+        .clka(w_p_tick),
         .wea(wea),
         .addra(pixel_addr),
         .dina(data),
@@ -72,26 +72,10 @@ module top(
 
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
-    // Instantiate line_buffer module
-    // line_buffer line_buffer_inst(
-    //     .clk(w_25MHz),
-    //     .reset(reset),
-    //     .x(w_x >> 1),
-    //     .y(w_y >> 1),
-    //     .video_on(w_video_on),
-    //     .pixel_in(binarize_pixel),
-    //     .pixel_addr_in(pixel_addr),
-    //     .smallest_label_out(label_0),
-    //     .left_label_out(left_label),
-    //     .left_up_label_out(left_up_label),
-    //     .right_up_label_out(right_up_label),
-    //     .up_label_out(up_label),
-    //     .equivalence_out(equivalence)
-    // );
-
-
     // Instantiate buffer module
     buffer buffer_inst_0 (
+        .clk(w_p_tick),
+        .video_on(w_video_on),
         .pixel_in(binarize_pixel),
         .x(w_x >> 1),
         .y(w_y >> 1),

@@ -19,6 +19,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module buffer(
+    input wire clk,
+    input wire video_on,
     input wire pixel_in, 
     input wire [8:0] x,
     input wire [8:0] y,
@@ -49,7 +51,7 @@ module buffer(
     integer i;
 
     // Assign neighbor labels based on x and y positions
-always @(pixel_in, x, y) begin
+always @(posedge clk) begin
     if (x >= image_width && y >= 240) begin
         new_label = 7'b0000001;  // Initialize label counter to 1
         current_label = 7'b0000000;
@@ -64,7 +66,7 @@ always @(pixel_in, x, y) begin
             buffer_5[i] = 0;
             buffer_6[i] = 0;
         end
-    end else if (x < image_width && y < 240) begin
+    end else if (video_on) begin
         left_label = {buffer_6[0], buffer_5[0], buffer_4[0], buffer_3[0], buffer_2[0], buffer_1[0], buffer_0[0]};
         left_up_label = {buffer_6[image_width], buffer_5[image_width], buffer_4[image_width], buffer_3[image_width], buffer_2[image_width], buffer_1[image_width], buffer_0[image_width]};
         up_label = {buffer_6[image_width-1], buffer_5[image_width-1], buffer_4[image_width-1], buffer_3[image_width-1], buffer_2[image_width-1], buffer_1[image_width-1], buffer_0[image_width-1]};
