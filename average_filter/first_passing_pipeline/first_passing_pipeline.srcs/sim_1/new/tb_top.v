@@ -95,12 +95,6 @@ module tb_top;
     assign x_1 = uut.x_1;
     assign y_1 = uut.y_1;
     assign equivalence = uut.equivalence;
-    assign hsync_0 = uut.hsync_0;
-    assign vsync_0 = uut.vsync_0;
-    assign hsync_1 = uut.hsync_1;
-    assign vsync_1 = uut.vsync_1;
-    assign hsync_2 = uut.hsync_2;
-    assign vsync_2 = uut.vsync_2;
     assign frame_done = uut.frame_done;
 
 endmodule

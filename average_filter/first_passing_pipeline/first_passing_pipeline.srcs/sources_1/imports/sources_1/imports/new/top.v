@@ -22,18 +22,14 @@ module top(
     wire [6:0] right_up_label;
     wire [6:0] up_label;
     wire equivalence;
+    wire SCLR;
 
     wire [8:0] x_0;
     wire [7:0] y_0;
     wire [8:0] x_1;
     wire [7:0] y_1;
-
-    wire hsync_0;
-    wire vsync_0;
-    wire hsync_1;
-    wire vsync_1;
-    wire hsync_2;
-    wire vsync_2;
+    wire cclk;
+    
 
     // Instantiate VGA Controller
     vga_controller vc(
@@ -45,19 +41,12 @@ module top(
         .p_tick(w_p_tick), 
         .x(w_x), 
         .y(w_y),
-        .frame_done(frame_done) 
+        .cclk(cclk)
     );
+
+    ///assign pixel_addr = (w_x >> 1) + (w_y >> 1) * 320;
 
     assign pixel_addr = (w_x >> 1) + (w_y >> 1) * 320;
-
-    // Instantiate blk_mem_gen_1
-    blk_mem_gen_1 blk_mem_gen_1_inst (
-        .clka(w_p_tick),
-        .wea(wea),
-        .addra(pixel_addr),
-        .dina(data),
-        .douta(rgb_pixel_in)
-    );
 
     // Generate 25MHz clock from 100MHz clock
     reg [1:0] r_25MHz = 0;
@@ -71,24 +60,45 @@ module top(
     assign w_25MHz = r_25MHz[1];  // Divides the 100MHz clock by 4 to get 25MHz
 
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
+    
+    // Instantiate blk_mem_gen_1
+    blk_mem_gen_1 blk_mem_gen_1_inst (
+        .clka(w_p_tick),
+        .wea(wea),
+        .addra(pixel_addr),
+        .dina(data),
+        .douta(rgb_pixel_in)
+    );
 
-    // Instantiate buffer module
+    // Instantiate blk_mem_gen_0
+    // blk_mem_gen_0 blk_mem_gen_0_inst (
+    //     .clka(w_p_tick),
+    //     .wea(wea),
+    //     .addra(pixel_addr),
+    //     .dina(data),
+    //     .douta(data)
+    // );
+
+//    Instantiate buffer module
     buffer buffer_inst_0 (
-        .clk(w_p_tick),
+        .clk(cclk),
         .video_on(w_video_on),
         .pixel_in(binarize_pixel),
-        .x(w_x >> 1),
-        .y(w_y >> 1),
+        .x(w_x>>1),
+        .y(w_y>>1),
+        .reset(reset),
         .left_label_out(left_label),
         .left_up_label_out(left_up_label),
         .up_label_out(up_label),
         .right_up_label_out(right_up_label),
         .current_label(final_label_out),
         .new_label_out(label_0),
-        .state(state)
+        .state(state),
+        .SCLR(SCLR)
     );
 
-    assign rgb = {4'b0000,final_label_out, 1'b0};
+    assign rgb = {2'b00,left_label, 3'b000};
+    //assign rgb = {5'b00000,binarize_pixel, 6'b000000};
 
 endmodule
 

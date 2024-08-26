@@ -29,7 +29,7 @@ module vga_controller(
     output p_tick,      // the 25MHz pixel/second rate signal, pixel tick
     output [9:0] x,     // pixel count/position of pixel x, max 0-799
     output [9:0] y,     // pixel count/position of pixel y, max 0-524
-    output frame_done   // signal indicating frame completion
+    output cclk
     );
 
     // VGA standard parameters
@@ -48,6 +48,10 @@ module vga_controller(
     reg  [1:0] r_25MHz;
     wire w_25MHz;
 
+    // Generate 12MHz clock
+    reg  [2:0] r_12MHz;
+    wire w_12MHz;
+
     always @(posedge clk_100MHz or posedge reset)
         if(reset)
             r_25MHz <= 0;
@@ -55,6 +59,14 @@ module vga_controller(
             r_25MHz <= r_25MHz + 1;
 
     assign w_25MHz = (r_25MHz == 0);
+
+    always @(posedge clk_100MHz or posedge reset)
+        if(reset)
+            r_12MHz <= 0;
+        else
+            r_12MHz <= r_12MHz + 1;
+
+    assign w_12MHz = (r_12MHz == 0);
 
     // Counter Registers
     reg [9:0] h_count_reg, h_count_next;
@@ -119,6 +131,7 @@ module vga_controller(
     assign x      = h_count_reg;
     assign y      = v_count_reg;
     assign p_tick = w_25MHz;
+    assign cclk = ~w_12MHz;
 
 endmodule
 

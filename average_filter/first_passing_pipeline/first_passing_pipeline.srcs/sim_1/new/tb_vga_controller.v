@@ -24,18 +24,20 @@
 
 module tb_vga_controller;
 
-    // Testbench signals
+    // Inputs
     reg clk_100MHz;
     reg reset;
+
+    // Outputs
     wire video_on;
     wire hsync;
     wire vsync;
     wire p_tick;
     wire [9:0] x;
     wire [9:0] y;
-    wire frame_done;
+    wire cclk;
 
-    // Instantiate the VGA controller
+    // Instantiate the Unit Under Test (UUT)
     vga_controller uut (
         .clk_100MHz(clk_100MHz),
         .reset(reset),
@@ -45,27 +47,39 @@ module tb_vga_controller;
         .p_tick(p_tick),
         .x(x),
         .y(y),
-        .frame_done(frame_done)
+        .cclk(cclk)
     );
 
     // Clock generation
-    always #5 clk_100MHz = ~clk_100MHz; // 100MHz clock period (10ns)
-
     initial begin
-        // Initialize signals
         clk_100MHz = 0;
+        forever #5 clk_100MHz = ~clk_100MHz;  // 100MHz clock period = 10ns
+    end
+
+    // Stimulus process
+    initial begin
+        // Initialize Inputs
         reset = 1;
 
-        // Apply reset
-        #20;
+        // Wait 100 ns for global reset to finish
+        #100;
+        
+        // Deassert reset
         reset = 0;
 
-        // Run simulation for a few frames
-        repeat(10) @(posedge frame_done);
-
-        // Stop simulation
+        // Allow simulation to run long enough to see multiple frames
+        #1000000;
+        
+        // End simulation
         $stop;
     end
 
+    // Monitor signals
+    initial begin
+        $monitor("Time: %0t | x: %d, y: %d, hsync: %b, vsync: %b, video_on: %b, p_tick: %b", 
+                 $time, x, y, hsync, vsync, video_on, p_tick);
+    end
+
 endmodule
+
 

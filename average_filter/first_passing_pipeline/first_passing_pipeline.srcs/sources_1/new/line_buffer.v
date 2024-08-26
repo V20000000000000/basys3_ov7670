@@ -24,22 +24,6 @@ module line_buffer(
 
     integer i;
 
-    // Instantiate min_label_selector
-    // min_label_selector min_label_selector_inst (
-    //     .left_label(left_label),
-    //     .left_up_label(left_up_label),
-    //     .up_label(up_label),
-    //     .right_up_label(right_up_label),
-    //     .min_label(min_label)
-    // );
-
-    // buffer x y
-    // wire [8:0] buffer_x;
-    // wire [7:0] buffer_y;
-
-    // assign buffer_x = (x < 320) ? x : 7'b0000000;
-    // assign buffer_y = (y < 240) ? y : 7'b0000000;
-    // Instantiate buffer
     buffer buffer_inst (
         .pixel_in(pixel_in),
         .x(x),
