@@ -73,15 +73,6 @@ module buffer(
         .Q(right_up_label)
     );
 
-    //Initialize left_reg (1 bit shift register)
-//    left_reg left_reg_inst (
-//        .D(left_label),
-//        .CLK(clk),
-//        .SCLR(SCLR),
-//        .Q(left_label)
-//    );
-
-
     // Assign neighbor labels based on x and y positions
     always @(posedge clk) begin
         if (reset || (x >= image_width && y >= 240)) begin

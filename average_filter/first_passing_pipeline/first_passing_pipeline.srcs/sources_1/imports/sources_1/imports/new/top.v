@@ -48,17 +48,6 @@ module top(
 
     assign pixel_addr = (w_x >> 1) + (w_y >> 1) * 320;
 
-    // Generate 25MHz clock from 100MHz clock
-    reg [1:0] r_25MHz = 0;
-    always @(posedge clk_100MHz or posedge reset) begin
-        if (reset)
-            r_25MHz <= 0;
-        else
-            r_25MHz <= r_25MHz + 1;
-    end
-
-    assign w_25MHz = r_25MHz[1];  // Divides the 100MHz clock by 4 to get 25MHz
-
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
     
     // Instantiate blk_mem_gen_1
@@ -69,15 +58,6 @@ module top(
         .dina(data),
         .douta(rgb_pixel_in)
     );
-
-    // Instantiate blk_mem_gen_0
-    // blk_mem_gen_0 blk_mem_gen_0_inst (
-    //     .clka(w_p_tick),
-    //     .wea(wea),
-    //     .addra(pixel_addr),
-    //     .dina(data),
-    //     .douta(data)
-    // );
 
 //    Instantiate buffer module
     buffer buffer_inst_0 (
