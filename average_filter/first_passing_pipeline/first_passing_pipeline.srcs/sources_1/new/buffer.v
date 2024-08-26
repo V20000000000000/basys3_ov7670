@@ -29,21 +29,19 @@ module buffer(
     output wire [6:0] left_up_label_out,
     output wire [6:0] up_label_out,
     output wire [6:0] right_up_label_out,
-    output reg [6:0] current_label,
     output wire [6:0] new_label_out,
     output reg [3:0] state,
     output reg SCLR
     );
 
     parameter image_width = 320;
+    parameter image_height = 240;
 
-    wire data;
     reg [6:0] left_label;
     wire [6:0] left_up_label;
     wire [6:0] up_label;
     wire [6:0] right_up_label;
     reg [6:0] new_label;
-    integer i;
     
     wire buffer_clk;
     
@@ -75,7 +73,7 @@ module buffer(
 
     // Assign neighbor labels based on x and y positions
     always @(posedge clk) begin
-        if (reset || (x >= image_width && y >= 240)) begin
+        if (reset || (x >= image_width && y >= image_height)) begin
             new_label <= 7'b0000001;  // Initialize label counter to 1
             left_label <= 7'b0000000;
             SCLR <= 1'b1;

@@ -13,21 +13,14 @@ module top(
     wire [16:0] pixel_addr;
     wire [11:0] data;
     wire [6:0] label_0;
-    wire w_25MHz;
-    wire frame_done;
 
     wire [6:0] final_label_out;
     wire [6:0] left_label;
     wire [6:0] left_up_label;
     wire [6:0] right_up_label;
     wire [6:0] up_label;
-    wire equivalence;
     wire SCLR;
 
-    wire [8:0] x_0;
-    wire [7:0] y_0;
-    wire [8:0] x_1;
-    wire [7:0] y_1;
     wire cclk;
     
 
@@ -71,7 +64,6 @@ module top(
         .left_up_label_out(left_up_label),
         .up_label_out(up_label),
         .right_up_label_out(right_up_label),
-        .current_label(final_label_out),
         .new_label_out(label_0),
         .state(state),
         .SCLR(SCLR)
