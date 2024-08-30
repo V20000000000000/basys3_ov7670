@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2024/08/12 19:58:21
+// Create Date: 2024/08/30 23:52:45
 // Design Name: 
-// Module Name: vga_controller
+// Module Name: vga_controller_0
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,7 +19,8 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module vga_controller(
+
+module vga_controller_0(
     input clk_100MHz,   // from Basys 3
     input reset,        // system reset
     output video_on,    // ON while pixel counts for x and y and within display area
@@ -133,4 +134,3 @@ module vga_controller(
     assign cclk = ~w_12MHz;
 
 endmodule
-

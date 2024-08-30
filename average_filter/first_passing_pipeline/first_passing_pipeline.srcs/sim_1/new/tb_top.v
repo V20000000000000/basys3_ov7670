@@ -19,32 +19,32 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 `timescale 1ns / 1ps
 
-module tb_top;
+module top_tb;
 
-    // Testbench signals
     reg clk_100MHz;
     reg reset;
     wire hsync;
     wire vsync;
     wire [11:0] rgb;
-
-    // Internal signals for observing the internal modules
-    wire w_video_on, w_p_tick, frame_done;
-    wire [9:0] w_x, w_y;
+    wire [9:0] w_x;
+    wire [9:0] w_y;
     wire binarize_pixel;
-    wire [11:0] rgb_pixel_in;
+    wire [6:0] left_label;
+    wire [6:0] final_label_out;
+    wire cclk;
+    wire w_p_tick;
+    wire [1:0] pass_state;
+    wire clear;
+    wire label_write;
     wire [16:0] pixel_addr;
-    wire [11:0] data;
-    wire [6:0] label_0, final_label_out;
-    wire w_25MHz;
-    wire [6:0] left_label, left_up_label, right_up_label, up_label;
-    wire [8:0] x_0, x_1;
-    wire [7:0] y_0, y_1;
-    wire equivalence;
-    wire hsync_0, vsync_0, hsync_1, vsync_1, hsync_2, vsync_2;
+    wire [16:0] pixel_addr_1;
+    wire hsync_0;
+    wire vsync_0;
+    wire clk_100MHz_1;
+    wire [9:0] w_x_0;
+    wire [9:0] w_y_0;
 
     // Instantiate the top module
     top uut (
@@ -52,50 +52,61 @@ module tb_top;
         .reset(reset),
         .hsync(hsync),
         .vsync(vsync),
-        .rgb(rgb)
+        .rgb(rgb),
+        .w_x(w_x),
+        .w_y(w_y),
+        .binarize_pixel(binarize_pixel),
+        .left_label(left_label),
+        .final_label_out(final_label_out),
+        .cclk(cclk),
+        .w_p_tick(w_p_tick),
+        .pass_state(pass_state),
+        .clear(clear),
+        .label_write(label_write),
+        .pixel_addr(pixel_addr),
+        .pixel_addr_1(pixel_addr_1),
+        .hsync_0(hsync_0),
+        .vsync_0(vsync_0),
+        .clk_100MHz_1(clk_100MHz_1),
+        .w_x_0(w_x_0),
+        .w_y_0(w_y_0)
     );
 
     // Clock generation
-    always #5 clk_100MHz = ~clk_100MHz; // 100MHz clock period (10ns)
+    initial begin
+        clk_100MHz = 0;
+        forever #5 clk_100MHz = ~clk_100MHz; // 100MHz clock
+    end
 
+    // Test sequence
     initial begin
         // Initialize signals
-        clk_100MHz = 0;
         reset = 1;
 
         // Apply reset
-        #20;
+        #100;
         reset = 0;
 
-        // Run simulation for a specified amount of time
-        #500000;
+        // Let the simulation run for a while to observe the interactions
+        #100000000;
 
-        // Stop simulation
+        // Finish simulation
         $stop;
     end
 
-    // Observe internal signals by connecting them to testbench signals
-    assign w_video_on = uut.w_video_on;
-    assign w_p_tick = uut.w_p_tick;
-    assign w_x = uut.w_x;
-    assign w_y = uut.w_y;
-    assign binarize_pixel = uut.binarize_pixel;
-    assign rgb_pixel_in = uut.rgb_pixel_in;
-    assign pixel_addr = uut.pixel_addr;
-    assign data = uut.data;
-    assign label_0 = uut.label_0;
-    assign final_label_out = uut.final_label_out;
-    assign w_25MHz = uut.w_25MHz;
-    assign left_label = uut.left_label;
-    assign left_up_label = uut.left_up_label;
-    assign right_up_label = uut.right_up_label;
-    assign up_label = uut.up_label;
-    assign x_0 = uut.x_0;
-    assign y_0 = uut.y_0;
-    assign x_1 = uut.x_1;
-    assign y_1 = uut.y_1;
-    assign equivalence = uut.equivalence;
-    assign frame_done = uut.frame_done;
+    // Monitor internal signals using $monitor
+    initial begin
+    $monitor("Time = %0d, Reset = %b, hsync = %b, vsync = %b, rgb = %h, w_x = %d, w_y = %d, binarize_pixel = %b, left_label = %h, \
+    final_label_out = %h, cclk = %b, w_p_tick = %b, pass_state = %b, clear = %b, label_write = %b, pixel_addr = %d, pixel_addr_1 = %d, \
+    hsync_0 = %b, vsync_0 = %b, clk_100MHz_1 = %b, w_x_0 = %d, w_y_0 = %d", $realtime, clk_100MHz, reset, hsync, vsync, rgb, w_x, w_y, binarize_pixel, left_label, final_label_out, cclk, w_p_tick, pass_state, 
+    clear, label_write, pixel_addr, pixel_addr_1, hsync_0, vsync_0, clk_100MHz_1, w_x_0, w_y_0);
+end
+
+
+    // Dump all signals to a VCD file for waveform analysis
+    initial begin
+        $dumpfile("top_tb.vcd");    // VCD file name
+        $dumpvars(0, top_tb);       // Dump all signals in top_tb (including uut)
+    end
 
 endmodule
-
