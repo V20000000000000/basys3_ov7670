@@ -3,7 +3,7 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb, 
+    output [11:0] rgb/*, 
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
@@ -20,7 +20,7 @@ module top(
     output wire vsync_0,
     output wire clk_100MHz_1,
     output wire [9:0] w_x_0,
-    output wire [9:0] w_y_0
+    output wire [9:0] w_y_0*/
 );
 
     wire w_video_on;
@@ -45,15 +45,16 @@ module top(
     wire w_p_tick;
     wire binarize_pixel;
     wire [16:0] pixel_addr;
+    wire [16:0] pixel_addr_1;
     wire [6:0] left_label;
     wire [6:0] final_label_out;
     wire wea = 1'b0;
 
 
     // Instantiate clk_100MHz_1
-   wire clk_100MHz_1;
+    wire clk_100MHz_1;
     reg [20:0] clk_reg;
-    wire w_x_0, w_y_0;
+    wire [9:0] w_x_0, w_y_0;
     
     reg [6:0] count = 0;
     reg clk_state = 0;
@@ -62,7 +63,7 @@ module top(
         case (clk_state)
             0: begin
                 count <= count + 1;
-                if(count == 16) begin
+                if(count == 42) begin
                     clk_state <= 1;
                     count <= 0;
                 end
@@ -77,10 +78,10 @@ module top(
 
     // Instantiate VGA Controller_0
     vga_controller_0 vga_controller_0_inst (
-        .clk_100MHz(clk_100MHz),
+        .clk_100MHz(clk_100MHz_1),
         .reset(reset),
-        .hsync(hsync_0_0),
-        .vsync(vsync_0_0),
+        .hsync(hsync__0),
+        .vsync(vsync__0),
         .video_on(w_video_on_0),
         .p_tick(w_p_tick_0),
         .x(w_x_0),
@@ -90,7 +91,7 @@ module top(
 
     // Instantiate VGA Controller
     vga_controller vc(
-        .clk_100MHz(clk_100MHz_1),     
+        .clk_100MHz(clk_100MHz),     
         .reset(reset), 
         .video_on(w_video_on),     
         .hsync(hsync_0),    
@@ -107,11 +108,11 @@ module top(
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // shift reg of hsync and vsync 
-    reg [20:0] hsync_reg, vsync_reg;
+    reg [40:0] hsync_reg, vsync_reg;
 
     always @(posedge clk_100MHz) begin
-        hsync_reg <= {hsync_reg[20:0], hsync_0};
-        vsync_reg <= {vsync_reg[20:0], vsync_0};
+        hsync_reg <= {hsync_reg[40:0], hsync__0};
+        vsync_reg <= {vsync_reg[40:0], vsync__0};
     end
     
     assign hsync = hsync_reg[0];
@@ -175,7 +176,7 @@ module top(
         .dina(left_label),
         // .rsta(reset || clear),  
         .ena(ena),
-        .clkb(cclk),
+        .clkb(cclk_0),
         .addrb(pixel_addr_1),
         .doutb(final_label_out),
         .enb(ena),

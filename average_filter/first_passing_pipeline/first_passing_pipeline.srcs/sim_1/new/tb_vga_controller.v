@@ -68,7 +68,7 @@ module tb_vga_controller;
         reset = 0;
 
         // Allow simulation to run long enough to see multiple frames
-        #1000000;
+        #100000000;
         
         // End simulation
         $stop;
