@@ -50,7 +50,6 @@ module top(
     wire [6:0] final_label_out;
     wire wea = 1'b0;
 
-
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
     reg [20:0] clk_reg;
@@ -58,36 +57,6 @@ module top(
     
     reg [6:0] count = 0;
     reg clk_state = 0;
-
-    always @(posedge clk_100MHz) begin
-        case (clk_state)
-            0: begin
-                count <= count + 1;
-                if(count == 26) begin
-                    clk_state <= 1;
-                    count <= 0;
-                end
-            end
-            1: begin
-                  count <= 0; // Use non-blocking assignment
-            end
-        endcase
-    end
-
-    assign clk_100MHz_1 = (clk_state == 1) ? clk_100MHz : 1'b0;
-
-    // Instantiate VGA Controller_0
-    vga_controller_0 vga_controller_0_inst (
-        .clk_100MHz(clk_100MHz_1),
-        .reset(reset),
-        .hsync(hsync__0),
-        .vsync(vsync__0),
-        .video_on(w_video_on_0),
-        .p_tick(w_p_tick_0),
-        .x(w_x_0),
-        .y(w_y_0),
-        .cclk(cclk_0)
-    );
 
     // Instantiate VGA Controller
     vga_controller vc(
@@ -103,7 +72,6 @@ module top(
     );
 
     assign pixel_addr = (w_x >> 1) + (w_y >> 1) * 320;
-    assign pixel_addr_1 = (w_x_0 >> 1) + (w_y_0 >> 1) * 320;
 
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
@@ -111,12 +79,12 @@ module top(
     reg [40:0] hsync_reg, vsync_reg;
 
     always @(posedge clk_100MHz) begin
-        hsync_reg <= {hsync_reg[40:0], hsync__0};
-        vsync_reg <= {vsync_reg[40:0], vsync__0};
-    end
+            hsync_reg <= {hsync_reg[40:0], hsync_0};
+            vsync_reg <= {vsync_reg[40:0], vsync_0};
+        end
     
-     assign hsync = hsync_reg[15];
-     assign vsync = vsync_reg[15];
+     assign hsync = hsync_reg[2];
+     assign vsync = vsync_reg[2];
     // assign hsync = hsync__0;
     // assign vsync = vsync__0;
     
@@ -172,17 +140,11 @@ module top(
 
     // Instantiate blk_mem_gen_0 (store the result(left_label) of first pass)
     blk_mem_gen_0 blk_mem_gen_0_inst (
-        .clka(cclk),
+        .clka(clk_100MHz),
         .wea(label_write),
         .addra(pixel_addr),
         .dina(left_label),
-        // .rsta(reset || clear),  
-        .ena(ena),
-        .clkb(cclk_0),
-        .addrb(pixel_addr_1),
-        .doutb(final_label_out),
-        .enb(ena),
-        .rstb(reset || clear) // Memory reset with reset or clear signal
+        .douta(final_label_out)
     );
 
 //    Instantiate buffer module
@@ -202,7 +164,7 @@ module top(
        .SCLR(SCLR)
    );
 
-    assign rgb = {2'b00,final_label_out, 3'b000};
+    assign rgb = {1'b0,final_label_out, 4'b00000};
     // assign rgb = {2'b00,left_label, 3'b000};
     // massign rgb = rgb_pixel_in;
 
