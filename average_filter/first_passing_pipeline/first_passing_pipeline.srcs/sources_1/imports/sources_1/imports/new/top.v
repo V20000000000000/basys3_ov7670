@@ -63,7 +63,7 @@ module top(
         case (clk_state)
             0: begin
                 count <= count + 1;
-                if(count == 42) begin
+                if(count == 26) begin
                     clk_state <= 1;
                     count <= 0;
                 end
@@ -115,9 +115,11 @@ module top(
         vsync_reg <= {vsync_reg[40:0], vsync__0};
     end
     
-    assign hsync = hsync_reg[0];
-    assign vsync = vsync_reg[0];
-
+     assign hsync = hsync_reg[15];
+     assign vsync = vsync_reg[15];
+    // assign hsync = hsync__0;
+    // assign vsync = vsync__0;
+    
     // control wea for first pass memory
     // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
     // otherwise, wea is 1, so the memory is write only
