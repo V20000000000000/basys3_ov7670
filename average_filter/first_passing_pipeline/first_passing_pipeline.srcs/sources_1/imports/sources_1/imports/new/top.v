@@ -8,6 +8,7 @@ module top(
     output [9:0] w_y,
     output wire binarize_pixel,
     output wire [6:0] left_label,
+    output wire [6:0] mem_label_out,
     output wire [6:0] final_label_out,
     output wire cclk,
     output wire w_p_tick,
@@ -48,6 +49,7 @@ module top(
     wire [16:0] pixel_addr;
     wire [16:0] pixel_addr_1;
     wire [6:0] left_label;
+    wire [6:0] mem_label_out;
     wire [6:0] final_label_out;
     wire wea = 1'b0;
 
@@ -92,7 +94,7 @@ module top(
     // control wea for first pass memory
     // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
     // otherwise, wea is 1, so the memory is write only
-    parameter FIRST_PASS = 2'b00, SECOND_PASS = 2'b01, DONE = 2'b10;
+    parameter FIRST_PASS = 2'b00, WaitForSecondPass = 2'b01, SECOND_PASS = 2'b10, DONE = 2'b11;
         
     always @(negedge w_p_tick or posedge reset) begin
         if (reset) begin
@@ -104,6 +106,13 @@ module top(
                 FIRST_PASS: begin
                     clear <= 0;
                     if (w_x == 640 && w_y == 479) begin
+                        pass_state <= WaitForSecondPass;
+                        label_write <= 0;  // Disable writing for the second pass
+                    end
+                end
+
+                WaitForSecondPass: begin
+                    if (w_x == 0 && w_y == 0) begin
                         pass_state <= SECOND_PASS;
                         label_write <= 0;  // Disable writing for the second pass
                     end
@@ -145,10 +154,10 @@ module top(
         .wea(label_write),
         .addra(pixel_addr),
         .dina(left_label),
-        .douta(final_label_out)
+        .douta(mem_label_out)
     );
 
-//    Instantiate buffer module
+    // Instantiate buffer module
    buffer buffer_inst_0 (
        .clk(cclk),
        .video_on(w_video_on),
@@ -165,11 +174,26 @@ module top(
        .SCLR(SCLR)
    );
 
+    // Instantiate label_set module
+    label_set label_set_inst (
+        .clk(clk_100MHz),
+        .reset(reset),
+        .clear(clear),
+        .pixel_addr(pixel_addr),
+        .state(pass_state),
+        .min_label_in(mem_label_out),
+        .left_up_label_in(left_up_label),
+        .up_label_in(up_label),
+        .right_up_label_in(right_up_label),
+        .min_label_out(final_label_out)
+    );
+
     // add buffer
     reg [11:0] rgb_reg;
     always @(posedge cclk) begin
         rgb_reg <= {3'b000,final_label_out, 2'b00};
         // rgb_reg = {3'b000,left_label, 2'b00};
+        // rgb_reg = {3'b000,mem_label_out, 2'b00};
     end
     
     assign rgb = rgb_reg;

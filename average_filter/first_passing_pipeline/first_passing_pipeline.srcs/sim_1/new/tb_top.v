@@ -45,6 +45,7 @@ module top_tb;
     wire clk_100MHz_1;
     wire [9:0] w_x_0;
     wire [9:0] w_y_0;
+    wire [6:0] mem_label_out;
 
     // Instantiate the top module
     top uut (
@@ -57,6 +58,7 @@ module top_tb;
         .w_y(w_y),
         .binarize_pixel(binarize_pixel),
         .left_label(left_label),
+        .mem_label_out(mem_label_out),
         .final_label_out(final_label_out),
         .cclk(cclk),
         .w_p_tick(w_p_tick),
@@ -97,8 +99,8 @@ module top_tb;
     // Monitor internal signals using $monitor
     initial begin
     $monitor("Time = %0d, Reset = %b, hsync = %b, vsync = %b, rgb = %h, w_x = %d, w_y = %d, binarize_pixel = %b, left_label = %h, \
-    final_label_out = %h, cclk = %b, w_p_tick = %b, pass_state = %b, clear = %b, label_write = %b, pixel_addr = %d, pixel_addr_1 = %d, \
-    hsync_0 = %b, vsync_0 = %b, clk_100MHz_1 = %b, w_x_0 = %d, w_y_0 = %d", $realtime, clk_100MHz, reset, hsync, vsync, rgb, w_x, w_y, binarize_pixel, left_label, final_label_out, cclk, w_p_tick, pass_state, 
+    final_label_out = %h, mem_label_out =  %h, cclk = %b, w_p_tick = %b, pass_state = %b, clear = %b, label_write = %b, pixel_addr = %d, pixel_addr_1 = %d, \
+    hsync_0 = %b, vsync_0 = %b, clk_100MHz_1 = %b, w_x_0 = %d, w_y_0 = %d", $realtime, clk_100MHz, reset, hsync, vsync, rgb, w_x, w_y, binarize_pixel, left_label, final_label_out, mem_label_out, cclk, w_p_tick, pass_state, 
     clear, label_write, pixel_addr, pixel_addr_1, hsync_0, vsync_0, clk_100MHz_1, w_x_0, w_y_0);
 end
 
