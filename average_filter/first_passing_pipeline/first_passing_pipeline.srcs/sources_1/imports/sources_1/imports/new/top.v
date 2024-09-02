@@ -3,7 +3,7 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb/*, 
+    output [11:0] rgb, 
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
@@ -20,7 +20,7 @@ module top(
     output wire vsync_0,
     output wire clk_100MHz_1,
     output wire [9:0] w_x_0,
-    output wire [9:0] w_y_0*/
+    output wire [9:0] w_y_0
 );
 
     wire w_video_on;
@@ -32,6 +32,7 @@ module top(
     wire [6:0] left_up_label;
     wire [6:0] right_up_label;
     wire [6:0] up_label;
+    wire [6:0] left_left_label;
 
     wire SCLR;
     wire ena = 1'b1;
@@ -55,7 +56,7 @@ module top(
     reg [20:0] clk_reg;
     wire [9:0] w_x_0, w_y_0;
     
-    reg [6:0] count = 0;
+    reg [6:0] count = 0;    
     reg clk_state = 0;
 
     // Instantiate VGA Controller
@@ -63,8 +64,8 @@ module top(
         .clk_100MHz(clk_100MHz),     
         .reset(reset), 
         .video_on(w_video_on),     
-        .hsync(hsync_0),    
-        .vsync(vsync_0), 
+        .hsync(hsync),    
+        .vsync(vsync), 
         .p_tick(w_p_tick), 
         .x(w_x), 
         .y(w_y),
@@ -83,10 +84,10 @@ module top(
             vsync_reg <= {vsync_reg[40:0], vsync_0};
         end
     
-     assign hsync = hsync_reg[2];
-     assign vsync = vsync_reg[2];
-    // assign hsync = hsync__0;
-    // assign vsync = vsync__0;
+    // assign hsync = hsync_reg[0];
+    // assign vsync = vsync_reg[0];
+    // assign hsync = hsync_0;
+    // assign vsync = vsync_0;
     
     // control wea for first pass memory
     // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
@@ -164,8 +165,13 @@ module top(
        .SCLR(SCLR)
    );
 
-    assign rgb = {1'b0,final_label_out, 4'b00000};
-    // assign rgb = {2'b00,left_label, 3'b000};
-    // massign rgb = rgb_pixel_in;
+    // add buffer
+    reg [11:0] rgb_reg;
+    always @(posedge cclk) begin
+        rgb_reg <= {3'b000,final_label_out, 2'b00};
+        // rgb_reg = {3'b000,left_label, 2'b00};
+    end
+    
+    assign rgb = rgb_reg;
 
 endmodule
