@@ -46,12 +46,15 @@ module top(
     wire cclk;
     wire w_p_tick;
     wire binarize_pixel;
-    wire [16:0] pixel_addr;
+    wire [14:0] pixel_addr;
     // wire [16:0] pixel_addr_1;
     wire [6:0] left_label;
     wire [6:0] mem_label_out;
     wire [6:0] final_label_out;
     wire wea = 1'b0;
+    wire a_video_on;
+
+    assign a_video_on = ((w_x >>1) < 192 && (w_y >>1) < 144) ? 1 : 0;
 
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
@@ -73,7 +76,7 @@ module top(
         .cclk(cclk)
     );
 
-    assign pixel_addr = (w_x >> 1) + (w_y >> 1) * 320;
+    assign pixel_addr = ((w_x >> 1) < 192 && (w_y >> 1) < 144) ? ((w_x >> 1) + (w_y >> 1) * 192)  :  15'b111111111111111;
 
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
@@ -104,7 +107,7 @@ module top(
             case (pass_state)
                 FIRST_PASS: begin
                     clear <= 0;
-                    if (w_x == 640 && w_y == 479) begin
+                    if (w_x == 192 && w_y == 144) begin
                         pass_state <= WaitForSecondPass;
                         label_write <= 0;  // Disable writing for the second pass
                     end
@@ -118,7 +121,7 @@ module top(
                 end
 
                 SECOND_PASS: begin
-                    if (w_x == 640 && w_y == 479) begin
+                    if (w_x == 192 && w_y == 144) begin
                         pass_state <= DONE;
                     end
                 end
@@ -159,7 +162,7 @@ module top(
     // Instantiate buffer module
    buffer buffer_inst_0 (
        .clk(cclk),
-       .video_on(w_video_on),
+       .video_on(a_video_on),
        .pixel_in(binarize_pixel),
        .x(w_x>>1),
        .y(w_y>>1),
@@ -174,25 +177,26 @@ module top(
    );
 
     // Instantiate label_set module
-    label_set label_set_inst (
-        .clk(clk_100MHz),
-        .reset(reset),
-        .clear(clear),
-        .pixel_addr(pixel_addr),
-        .state(pass_state),
-        .min_label_in(mem_label_out),
-        .left_up_label_in(left_up_label),
-        .up_label_in(up_label),
-        .right_up_label_in(right_up_label),
-        .min_label_out(final_label_out)
-    );
+//    label_set label_set_inst (
+//        .clk(clk_100MHz),
+//        .reset(reset),
+//        .clear(clear),
+//        .pixel_addr(pixel_addr),
+//        .state(pass_state),
+//        .min_label_in(mem_label_out),
+//        .left_up_label_in(left_up_label),
+//        .up_label_in(up_label),
+//        .right_up_label_in(right_up_label),
+//        .min_label_out(final_label_out)
+//    );
 
     // add buffer
     reg [11:0] rgb_reg;
     always @(posedge cclk) begin
-        rgb_reg <= {3'b000,final_label_out, 2'b00};
-        // rgb_reg = {3'b000,left_label, 2'b00};
+        // rgb_reg <= {3'b000,final_label_out, 2'b00};
+       rgb_reg = {3'b000,left_label, 2'b00};
         // rgb_reg = {3'b000,mem_label_out, 2'b00};
+        // rgb_reg = {binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel};
     end
     
     assign rgb = rgb_reg;

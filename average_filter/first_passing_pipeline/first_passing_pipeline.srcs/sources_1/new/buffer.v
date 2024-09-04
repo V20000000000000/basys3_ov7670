@@ -34,8 +34,8 @@ module buffer(
     output reg SCLR
     );
 
-    parameter image_width = 320;
-    parameter image_height = 240;
+    parameter image_width = 192;
+    parameter image_height = 144;
 
     reg [6:0] left_label;
     wire [6:0] left_up_label;
