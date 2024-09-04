@@ -74,7 +74,12 @@ module label_set(
                 end
                 // Second pass: output the resolved minimum label
                 2'b10: begin
-                    min_label_out <= label_set[min_label_in];
+                    if(min_label_in != 0) begin
+                        min_label_out <= label_set[min_label_in];
+                    end
+                    else begin
+                        min_label_out <= 7'b0000000;
+                    end
                 end
                 // Default case for unexpected states
                 default: begin

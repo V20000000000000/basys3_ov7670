@@ -3,7 +3,7 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb, 
+    output [11:0] rgb/*, 
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
@@ -21,7 +21,7 @@ module top(
     output wire vsync_0,
     output wire clk_100MHz_1,
     output wire [9:0] w_x_0,
-    output wire [9:0] w_y_0
+    output wire [9:0] w_y_0*/
 );
 
     wire w_video_on;
@@ -47,7 +47,7 @@ module top(
     wire w_p_tick;
     wire binarize_pixel;
     wire [16:0] pixel_addr;
-    wire [16:0] pixel_addr_1;
+    // wire [16:0] pixel_addr_1;
     wire [6:0] left_label;
     wire [6:0] mem_label_out;
     wire [6:0] final_label_out;
@@ -55,11 +55,10 @@ module top(
 
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
-    reg [20:0] clk_reg;
     wire [9:0] w_x_0, w_y_0;
     
-    reg [6:0] count = 0;    
-    reg clk_state = 0;
+    // reg [6:0] count = 0;    
+    // reg clk_state = 0;
 
     // Instantiate VGA Controller
     vga_controller vc(
@@ -79,12 +78,12 @@ module top(
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // shift reg of hsync and vsync 
-    reg [40:0] hsync_reg, vsync_reg;
+    // reg [40:0] hsync_reg, vsync_reg;
 
-    always @(posedge clk_100MHz) begin
-            hsync_reg <= {hsync_reg[40:0], hsync_0};
-            vsync_reg <= {vsync_reg[40:0], vsync_0};
-        end
+//    always @(posedge clk_100MHz) begin
+//            hsync_reg <= {hsync_reg[40:0], hsync_0};
+//            vsync_reg <= {vsync_reg[40:0], vsync_0};
+//        end
     
     // assign hsync = hsync_reg[0];
     // assign vsync = vsync_reg[0];
