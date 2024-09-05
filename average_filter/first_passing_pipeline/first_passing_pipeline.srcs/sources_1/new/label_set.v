@@ -23,30 +23,30 @@ module label_set(
     input wire clk,
     input wire reset,
     input wire clear,
-    input wire [16:0] pixel_addr,
+    input wire [14:0] pixel_addr,
     input wire [1:0] state,
-    input wire [6:0] min_label_in,
-    input wire [6:0] left_up_label_in,
-    input wire [6:0] up_label_in,
-    input wire [6:0] right_up_label_in,
-    output reg [6:0] min_label_out
+    input wire [5:0] min_label_in,
+    input wire [5:0] left_up_label_in,
+    input wire [5:0] up_label_in,
+    input wire [5:0] right_up_label_in,
+    output reg [5:0] min_label_out
     );
 
-    reg [6:0] label_set [127:0];
+    reg [6:0] label_set [63:0];
     integer i;
 
     // Synchronous reset and clear
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            for (i = 1; i < 129; i = i + 1) begin
+            for (i = 1; i < 65; i = i + 1) begin
                 label_set[i] <= i;
             end
-            min_label_out <= 7'b0000000;
+            min_label_out <= 6'b000000;
         end else if (clear) begin
-            for (i = 1; i < 129; i = i + 1) begin
+            for (i = 1; i < 65; i = i + 1) begin
                 label_set[i] <= i;
             end
-            min_label_out <= 7'b0000000;
+            min_label_out <= 6'b000000;
         end else begin
             case (state)
                 // First pass: record equivalence
@@ -66,7 +66,7 @@ module label_set(
                             label_set[i] <= label_set[label_set[i]];
                         end
                     end
-                    min_label_out <= 7'b0000000;
+                    min_label_out <= 6'b000000;
                 end
                 // Wait for second pass
                 2'b01: begin
@@ -78,12 +78,12 @@ module label_set(
                         min_label_out <= label_set[min_label_in];
                     end
                     else begin
-                        min_label_out <= 7'b0000000;
+                        min_label_out <= 6'b000000;
                     end
                 end
                 // Default case for unexpected states
                 default: begin
-                    min_label_out <= 7'b0000000;
+                    min_label_out <= 6'b000000;
                 end
             endcase
         end

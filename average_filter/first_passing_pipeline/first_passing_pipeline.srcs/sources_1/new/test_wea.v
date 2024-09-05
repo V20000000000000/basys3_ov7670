@@ -25,7 +25,7 @@ module test_wea(
     input wire w_p_tick,
     input wire [4:0] w_x,  // Assuming 4-bit width for 17x17 image
     input wire [4:0] w_y,
-    output reg label_write,
+    output reg label_write_1,
     output reg clear,
     output reg [1:0] pass_state  // Declare pass_state as an output reg
 );
@@ -34,7 +34,7 @@ module test_wea(
     always @(posedge w_p_tick or posedge reset) begin
         if (reset) begin
             pass_state <= FIRST_PASS;
-            label_write <= 1;
+            label_write_1 <= 1;
             clear <= 1;
         end else begin
             case (pass_state)
@@ -42,7 +42,7 @@ module test_wea(
                     clear <= 0;
                     if (w_x == image_size && w_y == image_size-1) begin
                         pass_state <= SECOND_PASS;
-                        label_write <= 0;  // Disable writing for the second pass
+                        label_write_1 <= 0;  // Disable writing for the second pass
                     end
                 end
 
@@ -59,7 +59,7 @@ module test_wea(
                     
                     if (w_x == 0&& w_y == 0) begin  // Coordinates (17,17) for a new frame
                         pass_state <= FIRST_PASS;
-                        label_write <= 1;  // Enable writing for the first pass again
+                        label_write_1 <= 1;  // Enable writing for the first pass again
                         clear <= 0;
                     end
                 end

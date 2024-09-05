@@ -25,7 +25,7 @@ module test_wea_tb();
     reg w_p_tick;
     reg [4:0] w_x;
     reg [4:0] w_y;
-    wire label_write;
+    wire label_write_1;
     wire clear;
 
     // Instantiate the test_wea module
@@ -34,7 +34,7 @@ module test_wea_tb();
         .w_p_tick(w_p_tick),
         .w_x(w_x),
         .w_y(w_y),
-        .label_write(label_write),
+        .label_write_1(label_write_1),
         .clear(clear),
         .pass_state(pass_state)
     );
@@ -75,8 +75,8 @@ module test_wea_tb();
 
     // Monitor changes
     initial begin
-        $monitor("Time: %0d, w_x: %d, w_y: %d, label_write: %b, clear: %b, pass_state: %b", 
-                 $time, w_x, w_y, label_write, clear, uut.pass_state);
+        $monitor("Time: %0d, w_x: %d, w_y: %d, label_write_1: %b, clear: %b, pass_state: %b", 
+                 $time, w_x, w_y, label_write_1, clear, uut.pass_state);
     end
 endmodule
 

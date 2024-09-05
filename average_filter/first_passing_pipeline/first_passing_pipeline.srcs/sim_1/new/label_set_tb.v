@@ -34,7 +34,7 @@ module label_set_tb;
 
     // State Machine Signals
     reg [1:0] pass_state;
-    reg label_write;
+    reg label_write_1;
     reg [9:0] w_x, w_y;  // Assuming w_x, w_y are 10-bit wide for a 640x480 resolution
     reg w_p_tick;
 
@@ -66,8 +66,8 @@ module label_set_tb;
 
     // Monitor signals
     initial begin
-        $monitor("Time: %0t | State: %b | w_x: %d | w_y: %d | label_write: %b | min_label_out: %b",
-                 $time, pass_state, w_x, w_y, label_write, min_label_out);
+        $monitor("Time: %0t | State: %b | w_x: %d | w_y: %d | label_write_1: %b | min_label_out: %b",
+                 $time, pass_state, w_x, w_y, label_write_1, min_label_out);
     end
 
     // Test procedure
@@ -89,7 +89,7 @@ module label_set_tb;
 
         // Begin First Pass
         pass_state = 2'b00;
-        label_write = 1;
+        label_write_1 = 1;
         clear = 0;
         state = 0;
 
@@ -103,7 +103,7 @@ module label_set_tb;
             end
             if (w_y == 479) begin
                 pass_state = 2'b01;
-                label_write = 0;
+                label_write_1 = 0;
             end
         end
 

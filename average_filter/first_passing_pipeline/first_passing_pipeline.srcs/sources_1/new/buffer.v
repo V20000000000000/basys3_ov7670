@@ -25,11 +25,11 @@ module buffer(
     input wire [8:0] x,
     input wire [8:0] y,
     input wire reset,
-    output wire [6:0] left_label_out, 
-    output wire [6:0] left_up_label_out,
-    output wire [6:0] up_label_out,
-    output wire [6:0] right_up_label_out,
-    output wire [6:0] new_label_out,
+    output wire [5:0] left_label_out, 
+    output wire [5:0] left_up_label_out,
+    output wire [5:0] up_label_out,
+    output wire [5:0] right_up_label_out,
+    output wire [5:0] new_label_out,
     output reg [3:0] state,
     output reg SCLR
     );
@@ -37,11 +37,11 @@ module buffer(
     parameter image_width = 192;
     parameter image_height = 144;
 
-    reg [6:0] left_label;
-    wire [6:0] left_up_label;
-    wire [6:0] up_label;
-    wire [6:0] right_up_label;
-    reg [6:0] new_label;
+    reg [5:0] left_label;
+    wire [5:0] left_up_label;
+    wire [5:0] up_label;
+    wire [5:0] right_up_label;
+    reg [5:0] new_label;
     
     wire buffer_clk;
     
@@ -74,36 +74,36 @@ module buffer(
     // Assign neighbor labels based on x and y positions
     always @(posedge clk) begin
         if (reset || (x >= image_width && y >= image_height)) begin
-            new_label <= 7'b0000001;  // Initialize label counter to 1
-            left_label <= 7'b0000000;
+            new_label <= 6'b000001;  // Initialize label counter to 1
+            left_label <= 6'b000000;
             SCLR <= 1'b1;
             state <= 4'b0000;
         end else if (video_on) begin
             SCLR <= 1'b0;
             if (pixel_in == 1) begin    
-                if((left_label == 7'b0000000) && (left_up_label == 7'b0000000) 
-                && (up_label == 7'b0000000) && (right_up_label == 7'b0000000)) begin
+                if((left_label == 6'b000000) && (left_up_label == 6'b000000) 
+                && (up_label == 6'b000000) && (right_up_label == 6'b000000)) begin
                     left_label <= new_label;
                     new_label <= new_label + 1;
                     state <= 4'b0001;
                 end
                 else begin
-                    left_label <= (left_label != 7'b0000000 && 
-                        (left_up_label == 7'b0000000 || left_label < left_up_label) &&
-                        (up_label == 7'b0000000 || left_label < up_label) &&
-                        (right_up_label == 7'b0000000 || left_label < right_up_label)) ? left_label :
-                       (left_up_label != 7'b0000000 && 
-                        (up_label == 7'b0000000 || left_up_label < up_label) &&
-                        (right_up_label == 7'b0000000 || left_up_label < right_up_label)) ? left_up_label :
-                       (up_label != 7'b0000000 && 
-                        (right_up_label == 7'b0000000 || up_label < right_up_label)) ? up_label :
-                       (right_up_label != 7'b0000000) ? right_up_label :
-                       7'b0000000;
+                    left_label <= (left_label != 6'b000000 && 
+                        (left_up_label == 6'b000000 || left_label < left_up_label) &&
+                        (up_label == 6'b000000 || left_label < up_label) &&
+                        (right_up_label == 6'b000000 || left_label < right_up_label)) ? left_label :
+                       (left_up_label != 6'b000000 && 
+                        (up_label == 6'b000000 || left_up_label < up_label) &&
+                        (right_up_label == 6'b000000 || left_up_label < right_up_label)) ? left_up_label :
+                       (up_label != 6'b000000 && 
+                        (right_up_label == 6'b000000 || up_label < right_up_label)) ? up_label :
+                       (right_up_label != 6'b000000) ? right_up_label :
+                       6'b000000;
                     state <= 4'b0010;
                 end
             end
             else begin
-                left_label <= 7'b0000000;
+                left_label <= 6'b000000;
                 state <= 4'b0011;
             end 
         end
