@@ -3,13 +3,13 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb/*, 
+    output [11:0] rgb, 
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
-    output wire [6:0] left_label,
-    output wire [6:0] mem_label_out,
-    output wire [6:0] final_label_out,
+    output wire [5:0] left_label,
+    output wire [5:0] mem_label_out,
+    output wire [5:0] final_label_out,
     output wire cclk,
     output wire w_p_tick,
     output reg [1:0] pass_state,
@@ -23,7 +23,7 @@ module top(
     output wire clk_100MHz_1,
     output wire [9:0] w_x_0,
     output wire [9:0] w_y_0,
-    output wire [5:0] display_signal*/
+    output wire [5:0] display_signal
 );
 
     wire w_video_on;
@@ -57,6 +57,7 @@ module top(
     wire wea = 1'b0;
     wire a_video_on;
     wire [5:0] display_signal;
+    wire [5:0] mem_label_out_2;
 
     assign a_video_on = ((w_x >>1) < 192 && (w_y >>1) < 144) ? 1 : 0;
 
@@ -72,8 +73,8 @@ module top(
         .clk_100MHz(clk_100MHz),     
         .reset(reset), 
         .video_on(w_video_on),     
-        .hsync(hsync_0),    
-        .vsync(vsync_0), 
+        .hsync(hsync),    
+        .vsync(vsync), 
         .p_tick(w_p_tick), 
         .x(w_x), 
         .y(w_y),
@@ -87,13 +88,13 @@ module top(
     // shift reg of hsync and vsync 
      reg [40:0] hsync_reg, vsync_reg;
 
-    always @(posedge clk_100MHz) begin
-            hsync_reg <= {hsync_reg[40:0], hsync_0};
-            vsync_reg <= {vsync_reg[40:0], vsync_0};
-        end
+//    always @(posedge clk_100MHz) begin
+//            hsync_reg <= {hsync_reg[40:0], hsync_0};
+//            vsync_reg <= {vsync_reg[40:0], vsync_0};
+//        end
     
-    assign hsync = hsync_reg[4];
-    assign vsync = vsync_reg[4];
+//    assign hsync = hsync_reg[2];
+//    assign vsync = vsync_reg[2];
     // assign hsync = hsync_0;
     // assign vsync = vsync_0;
     
@@ -173,7 +174,7 @@ module top(
         .wea(label_write_2),
         .addra(pixel_addr),
         .dina(final_label_out),
-        .douta(display_signal)
+        .douta(mem_label_out_2)
     );
 
     // Instantiate buffer module
@@ -206,16 +207,30 @@ module top(
         .right_up_label_in(right_up_label),
         .min_label_out(final_label_out)
     );
+    
+
+    assign display_signal = (a_video_on) ? mem_label_out_2 : 6'b000000;
+    
+    assign rgb = {4'b0000, display_signal, 2'b00};
 
     // add buffer
     reg [11:0] rgb_reg;
-    always @(posedge cclk) begin
+    // always @(posedge cclk) begin
         // rgb_reg <= {3'b000,final_label_out, 3'b00};
        // rgb_reg = {3'b000,left_label, 3'b000};
-       rgb_reg = {6'b000000, display_signal};
+       // rgb_reg = {6'b000000, display_signal};
         // rgb_reg = {binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel};
-    end
+    // end
     
-    assign rgb = rgb_reg;
+//    always @(posedge cclk) begin
+//        if(a_video_on) begin
+//            rgb_reg <= {4'b0000, display_signal, 2'b00};
+//        end
+//        else begin
+//            rgb_reg <= 12'b111100001111; // Default assignment for other cases
+//        end
+//    end
+   
+//assign rgb = rgb_reg;
 
 endmodule
