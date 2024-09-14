@@ -3,7 +3,7 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb, 
+    output [11:0] rgb/*, 
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
@@ -23,7 +23,7 @@ module top(
     output wire clk_100MHz_1,
     output wire [9:0] w_x_0,
     output wire [9:0] w_y_0,
-    output wire [5:0] display_signal
+    output wire [5:0] display_signal*/
 );
 
     wire w_video_on;

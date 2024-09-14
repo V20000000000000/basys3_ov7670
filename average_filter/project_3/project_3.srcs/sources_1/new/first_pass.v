@@ -48,7 +48,7 @@ module connected_component_labeling (
     always @(posedge clk) begin
         if (reset) begin
             new_label <= 7'b0000001;  // Initialize label counter to 1
-            label_temp <= 7'b0000000; // Reset temporary label
+            label_temp <= 6'b000000; // Reset temporary label
             for (i = 0; i < 128; i = i + 1) begin
                 label_equivalence[i] <= i; // Initialize union-find array
             end
@@ -58,10 +58,10 @@ module connected_component_labeling (
             prev_line_buf_1[x] <= first_label_out;
 
             // Assign neighbor labels based on x and y positions
-            left_label     <= (x > 0) ? prev_line_buf_1[x-1] : 7'b0000000;
-            left_up_label  <= (x > 0 && y > 0) ? prev_line_buf_2[x-1] : 7'b0000000;
-            up_label       <= (y > 0) ? prev_line_buf_2[x] : 7'b0000000;
-            right_up_label <= (x < 319 && y > 0) ? prev_line_buf_2[x+1] : 7'b0000000;
+            left_label     <= (x > 0) ? prev_line_buf_1[x-1] : 6'b000000;
+            left_up_label  <= (x > 0 && y > 0) ? prev_line_buf_2[x-1] : 6'b000000;
+            up_label       <= (y > 0) ? prev_line_buf_2[x] : 6'b000000;
+            right_up_label <= (x < 319 && y > 0) ? prev_line_buf_2[x+1] : 6'b000000;
         end
     end
 
@@ -69,30 +69,30 @@ module connected_component_labeling (
     always @(posedge clk) begin
         if (video_on && pixel_in) begin
             // Case 1: All neighbors are 0, create a new label
-            if (left_label == 7'b0000000 && left_up_label == 7'b0000000 &&
-                up_label == 7'b0000000 && right_up_label == 7'b0000000) begin
+            if (left_label == 6'b000000 && left_up_label == 6'b000000 &&
+                up_label == 6'b000000 && right_up_label == 6'b000000) begin
                 label_temp <= new_label;
                 new_label <= new_label + 1;
             end else begin
                 // Case 2 & 3: Assign the minimum label among neighbors
                 min_label = left_label;  
-                if (left_up_label != 7'b0000000 && (min_label == 7'b0000000 || left_up_label < min_label))
+                if (left_up_label != 6'b000000 && (min_label == 6'b000000 || left_up_label < min_label))
                     min_label = left_up_label;
-                if (up_label != 7'b0000000 && (min_label == 7'b0000000 || up_label < min_label))
+                if (up_label != 6'b000000 && (min_label == 6'b000000 || up_label < min_label))
                     min_label = up_label;
-                if (right_up_label != 7'b0000000 && (min_label == 7'b0000000 || right_up_label < min_label))
+                if (right_up_label != 6'b000000 && (min_label == 6'b000000 || right_up_label < min_label))
                     min_label = right_up_label;
 
                 label_temp = min_label;
                 
                 // Record label equivalence if necessary
-                if (left_label != 7'b0000000 && left_label != min_label)
+                if (left_label != 6'b000000 && left_label != min_label)
                     label_equivalence[left_label] = min_label;
-                if (left_up_label != 7'b0000000 && left_up_label != min_label)
+                if (left_up_label != 6'b000000 && left_up_label != min_label)
                     label_equivalence[left_up_label] = min_label;
-                if (up_label != 7'b0000000 && up_label != min_label)
+                if (up_label != 6'b000000 && up_label != min_label)
                     label_equivalence[up_label] = min_label;
-                if (right_up_label != 7'b0000000 && right_up_label != min_label)
+                if (right_up_label != 6'b000000 && right_up_label != min_label)
                     label_equivalence[right_up_label] = min_label;
             end
             wea <= 1'b1;  // Enable write to Block Memory

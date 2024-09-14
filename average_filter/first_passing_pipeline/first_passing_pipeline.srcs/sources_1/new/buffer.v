@@ -71,6 +71,8 @@ module buffer(
         .Q(right_up_label)
     );
 
+    
+
     // Assign neighbor labels based on x and y positions
     always @(posedge clk) begin
         if (reset || (x >= image_width && y >= image_height)) begin

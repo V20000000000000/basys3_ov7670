@@ -8,9 +8,9 @@ module top(
 
     wire w_video_on, w_p_tick;
     wire [9:0] w_x, w_y; 
-    wire [6:0] final_label_wire;  // Use wire type instead of reg
+    wire [:0] final_label_wire;  // Use wire type instead of reg
     reg [11:0] rgb_reg;
-    reg [6:0] label_reg;
+    reg [5:0] label_reg;
     wire rgb_filter_in;
     wire [16:0] pixel_addr;
     wire [11:0] data;

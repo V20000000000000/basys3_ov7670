@@ -38,12 +38,12 @@ module label_set(
     // Synchronous reset and clear
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            for (i = 1; i < 65; i = i + 1) begin
+            for (i = 0; i < 64; i = i + 1) begin
                 label_set[i] <= i;
             end
             min_label_out <= 6'b000000;
         end else if (clear) begin
-            for (i = 1; i < 65; i = i + 1) begin
+            for (i = 0; i < 64; i = i + 1) begin
                 label_set[i] <= i;
             end
             min_label_out <= 6'b000000;

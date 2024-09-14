@@ -37,7 +37,7 @@ module top_tb;
     wire clear;
     wire label_write_1;
     wire label_write_2;
-    wire [16:0] pixel_addr;
+    wire [14:0] pixel_addr;
     wire [5:0] mem_label_out;
      wire [5:0] display_signal;
     // Instantiate the top module

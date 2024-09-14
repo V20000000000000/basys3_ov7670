@@ -77,7 +77,6 @@ module vga_controller(
 
     // Frame Done Signal
     reg frame_done_reg;
-    assign frame_done = frame_done_reg;
 
     // Register Control
     always @(posedge clk_100MHz or posedge reset)
