@@ -30,6 +30,7 @@ module top(
     wire w_video_on;
     
     wire [11:0] rgb_pixel_in;
+    wire [11:0] rgb_pixel_original;
     wire [11:0] data;
     wire [5:0] label_0;
 
@@ -51,7 +52,7 @@ module top(
     wire w_p_tick;
     wire binarize_pixel;
     wire [14:0] pixel_addr;
-    // wire [16:0] pixel_addr_1;
+    wire [14:0] pixel_addr_1;
     wire [5:0] left_label;
     wire [5:0] mem_label_out;
     wire [5:0] final_label_out;
@@ -64,6 +65,7 @@ module top(
     assign w_n_tick = ~w_p_tick;
 
     assign a_video_on = (w_x < 192 && w_y < 144) ? 1 : 0;
+    assign b_video_on = (w_x < 387 && w_x >= 195 && w_y < 144) ? 1 : 0;
 
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
@@ -85,23 +87,10 @@ module top(
         .cclk(cclk)
     );
 
-    assign pixel_addr = (w_x < 192 && w_y < 144) ? (w_x + w_y * 192)  :  15'b111111111111111;
-
+    assign pixel_addr = (a_video_on) ? (w_x + w_y * 192)  :  15'b111111111111111;
+    assign pixel_addr_1 = b_video_on ? ((w_x - 195) + w_y * 192) : 15'b111111111111111;
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
-    // shift reg of hsync and vsync 
-     reg [40:0] hsync_reg, vsync_reg;
-
-//    always @(posedge clk_100MHz) begin
-//            hsync_reg <= {hsync_reg[40:0], hsync_0};
-//            vsync_reg <= {vsync_reg[40:0], vsync_0};
-//        end
-    
-//    assign hsync = hsync_reg[2];
-//    assign vsync = vsync_reg[2];
-    // assign hsync = hsync_0;
-    // assign vsync = vsync_0;
-    
     // control wea for first pass memory
     // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
     // otherwise, wea is 1, so the memory is write only
@@ -160,7 +149,13 @@ module top(
         .wea(wea),
         .addra(pixel_addr),
         .dina(data),
-        .douta(rgb_pixel_in)
+        .douta(rgb_pixel_in),
+        .clkb(w_p_tick),
+        .web(wea),
+        .addrb(pixel_addr_1),
+        .dinb(data),
+        .doutb(rgb_pixel_original),
+        .enb(ena)
     );
 
     // Instantiate blk_mem_gen_0 (store the result(left_label) of first pass)
@@ -212,29 +207,21 @@ module top(
         .min_label_out(final_label_out)
     );
     
-
-    assign rgb = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : ((w_video_on) ? 12'b111111111111 : 12'b000000000000);
-    
-    // assign rgb = (w_video_on) ? {4'b0000, display_signal, 2'b00} : 12'b111111111111;
-
-    // add buffer
+    wire [11:0] sa;
+    wire [11:0] sb;
+    wire [11:0] background;
     reg [11:0] rgb_reg;
-    // always @(posedge cclk) begin
-        // rgb_reg <= {3'b000,final_label_out, 3'b00};
-       // rgb_reg = {3'b000,left_label, 3'b000};
-       // rgb_reg = {6'b000000, display_signal};
-        // rgb_reg = {binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel};
-    // end
     
-//    always @(posedge cclk) begin
-//        if(a_video_on) begin
-//            rgb_reg <= {4'b0000, display_signal, 2'b00};
-//        end
-//        else begin
-//            rgb_reg <= 12'b111100001111; // Default assignment for other cases
-//        end
-//    end
-   
-//assign rgb = rgb_reg;
+    assign sa = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : 12'b000000000000;
+    assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
+    assign background = 12'b000000000000;
+
+    //add rgb buffer
+    always @(posedge clk_100MHz) begin
+        rgb_reg <= sa + sb + background;
+    end
+
+    // assign rgb = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : ((b_video_on) ? rgb_pixel_in : (w_video_on ? 12'b111111111111 : 12'b000000000000));
+    assign rgb = rgb_reg; //|| sb || background;
 
 endmodule
