@@ -12,6 +12,7 @@ module top(
     output wire [5:0] final_label_out,
     output wire cclk,
     output wire w_p_tick,
+    output wire w_n_tick,
     output reg [1:0] pass_state,
     output reg clear,
     output reg label_write_1,
@@ -58,8 +59,11 @@ module top(
     wire a_video_on;
     wire [5:0] display_signal;
     wire [5:0] mem_label_out_2;
+    wire w_n_tick;
 
-    assign a_video_on = ((w_x >>1) < 192 && (w_y >>1) < 144) ? 1 : 0;
+    assign w_n_tick = ~w_p_tick;
+
+    assign a_video_on = (w_x < 192 && w_y < 144) ? 1 : 0;
 
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
@@ -81,7 +85,7 @@ module top(
         .cclk(cclk)
     );
 
-    assign pixel_addr = ((w_x >> 1) < 192 && (w_y >> 1) < 144) ? ((w_x >> 1) + (w_y >> 1) * 192)  :  15'b111111111111111;
+    assign pixel_addr = (w_x < 192 && w_y < 144) ? (w_x + w_y * 192)  :  15'b111111111111111;
 
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
@@ -179,11 +183,11 @@ module top(
 
     // Instantiate buffer module
    buffer buffer_inst_0 (
-       .clk(cclk),
+       .clk(w_n_tick),
        .video_on(a_video_on),
        .pixel_in(binarize_pixel),
-       .x(w_x>>1),
-       .y(w_y>>1),
+       .x(w_x),
+       .y(w_y),
        .reset(reset),
        .left_label_out(left_label),
        .left_up_label_out(left_up_label),
@@ -209,9 +213,9 @@ module top(
     );
     
 
-    assign display_signal = (a_video_on) ? mem_label_out_2 : 6'b000000;
+    assign rgb = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : ((w_video_on) ? 12'b111111111111 : 12'b000000000000);
     
-    assign rgb = {4'b0000, display_signal, 2'b00};
+    // assign rgb = (w_video_on) ? {4'b0000, display_signal, 2'b00} : 12'b111111111111;
 
     // add buffer
     reg [11:0] rgb_reg;

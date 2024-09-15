@@ -33,13 +33,14 @@ module top_tb;
     wire [5:0] final_label_out;
     wire cclk;
     wire w_p_tick;
+    wire w_n_tick;
     wire [1:0] pass_state;
     wire clear;
     wire label_write_1;
     wire label_write_2;
     wire [14:0] pixel_addr;
     wire [5:0] mem_label_out;
-     wire [5:0] display_signal;
+    wire [5:0] display_signal;
     // Instantiate the top module
     top uut (
         .clk_100MHz(clk_100MHz),
@@ -56,6 +57,7 @@ module top_tb;
         .display_signal(display_signal),
         .cclk(cclk),
         .w_p_tick(w_p_tick),
+        .w_n_tick(w_n_tick),
         .pass_state(pass_state),
         .clear(clear),
         .label_write_1(label_write_1),
@@ -88,9 +90,9 @@ module top_tb;
     // Monitor internal signals using $monitor
     initial begin
         $monitor("Time = %0d, Reset = %b, hsync = %b, vsync = %b, rgb = %h, w_x = %d, w_y = %d, binarize_pixel = %b, left_label = %h, \
-        final_label_out = %h, mem_label_out =  %h, display_signal =  %h, cclk = %b, w_p_tick = %b, pass_state = %b, clear = %b, label_write_1 = %b, label_write_2 = %b,pixel_addr = %d", 
+        final_label_out = %h, mem_label_out =  %h, display_signal =  %h, cclk = %b, w_p_tick = %b, w_n_tick = %b, pass_state = %b, clear = %b, label_write_1 = %b, label_write_2 = %b,pixel_addr = %d", 
         $realtime, clk_100MHz, reset, hsync, vsync, rgb, w_x, w_y, binarize_pixel, left_label, final_label_out, mem_label_out, 
-         display_signal, cclk, w_p_tick, pass_state, clear, label_write_1, label_write_2, pixel_addr);
+         display_signal, cclk, w_p_tick, w_n_tick, pass_state, clear, label_write_1, label_write_2, pixel_addr);
     end
 
     // Dump all signals to a VCD file for waveform analysis

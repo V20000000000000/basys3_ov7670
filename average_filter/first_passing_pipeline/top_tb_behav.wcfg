@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="81.148125100 ms"></ZoomStartTime>
-      <ZoomEndTime time="88.888125101 ms"></ZoomEndTime>
-      <Cursor1Time time="86.208125100 ms"></Cursor1Time>
+      <ZoomStartTime time="0.000000000 ms"></ZoomStartTime>
+      <ZoomEndTime time="17.260000001 ms"></ZoomEndTime>
+      <Cursor1Time time="3.934875000 ms"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="199"></NameColumnWidth>
+      <NameColumnWidth column_width="195"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/top_tb/clk_100MHz" type="logic">
       <obj_property name="ElementShortName">clk_100MHz</obj_property>
       <obj_property name="ObjectShortName">clk_100MHz</obj_property>
@@ -39,17 +39,14 @@
    <wvobject fp_name="/top_tb/rgb" type="array">
       <obj_property name="ElementShortName">rgb[11:0]</obj_property>
       <obj_property name="ObjectShortName">rgb[11:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/w_x" type="array">
       <obj_property name="ElementShortName">w_x[9:0]</obj_property>
       <obj_property name="ObjectShortName">w_x[9:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/w_y" type="array">
       <obj_property name="ElementShortName">w_y[9:0]</obj_property>
       <obj_property name="ObjectShortName">w_y[9:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/binarize_pixel" type="logic">
       <obj_property name="ElementShortName">binarize_pixel</obj_property>
@@ -58,22 +55,10 @@
    <wvobject fp_name="/top_tb/left_label" type="array">
       <obj_property name="ElementShortName">left_label[5:0]</obj_property>
       <obj_property name="ObjectShortName">left_label[5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/mem_label_out" type="array">
-      <obj_property name="ElementShortName">mem_label_out[5:0]</obj_property>
-      <obj_property name="ObjectShortName">mem_label_out[5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/final_label_out" type="array">
       <obj_property name="ElementShortName">final_label_out[5:0]</obj_property>
       <obj_property name="ObjectShortName">final_label_out[5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/display_signal" type="array">
-      <obj_property name="ElementShortName">display_signal[5:0]</obj_property>
-      <obj_property name="ObjectShortName">display_signal[5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/cclk" type="logic">
       <obj_property name="ElementShortName">cclk</obj_property>
@@ -83,10 +68,13 @@
       <obj_property name="ElementShortName">w_p_tick</obj_property>
       <obj_property name="ObjectShortName">w_p_tick</obj_property>
    </wvobject>
+   <wvobject fp_name="/top_tb/w_n_tick" type="logic">
+      <obj_property name="ElementShortName">w_n_tick</obj_property>
+      <obj_property name="ObjectShortName">w_n_tick</obj_property>
+   </wvobject>
    <wvobject fp_name="/top_tb/pass_state" type="array">
       <obj_property name="ElementShortName">pass_state[1:0]</obj_property>
       <obj_property name="ObjectShortName">pass_state[1:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/clear" type="logic">
       <obj_property name="ElementShortName">clear</obj_property>
@@ -101,8 +89,15 @@
       <obj_property name="ObjectShortName">label_write_2</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/pixel_addr" type="array">
-      <obj_property name="ElementShortName">pixel_addr[16:0]</obj_property>
-      <obj_property name="ObjectShortName">pixel_addr[16:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="ElementShortName">pixel_addr[14:0]</obj_property>
+      <obj_property name="ObjectShortName">pixel_addr[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/mem_label_out" type="array">
+      <obj_property name="ElementShortName">mem_label_out[5:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_label_out[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/display_signal" type="array">
+      <obj_property name="ElementShortName">display_signal[5:0]</obj_property>
+      <obj_property name="ObjectShortName">display_signal[5:0]</obj_property>
    </wvobject>
 </wave_config>
