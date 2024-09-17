@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000000000 ms"></ZoomStartTime>
-      <ZoomEndTime time="17.260000001 ms"></ZoomEndTime>
-      <Cursor1Time time="3.934875000 ms"></Cursor1Time>
+      <ZoomEndTime time="23.271241381 ms"></ZoomEndTime>
+      <Cursor1Time time="1.350135000 ms"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="195"></NameColumnWidth>
+      <NameColumnWidth column_width="191"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
+   <WVObjectSize size="21" />
    <wvobject fp_name="/top_tb/clk_100MHz" type="logic">
       <obj_property name="ElementShortName">clk_100MHz</obj_property>
       <obj_property name="ObjectShortName">clk_100MHz</obj_property>
@@ -99,5 +99,9 @@
    <wvobject fp_name="/top_tb/display_signal" type="array">
       <obj_property name="ElementShortName">display_signal[5:0]</obj_property>
       <obj_property name="ObjectShortName">display_signal[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dilation_result" type="logic">
+      <obj_property name="ElementShortName">dilation_result</obj_property>
+      <obj_property name="ObjectShortName">dilation_result</obj_property>
    </wvobject>
 </wave_config>

@@ -7,6 +7,7 @@ module top(
     output [9:0] w_x,
     output [9:0] w_y,
     output wire binarize_pixel,
+    output wire dilation_result,
     output wire [5:0] left_label,
     output wire [5:0] mem_label_out,
     output wire [5:0] final_label_out,
@@ -70,9 +71,94 @@ module top(
     // Instantiate clk_100MHz_1
     wire clk_100MHz_1;
     wire [9:0] w_x_0, w_y_0;
+
+    wire dilation_result_1;
+    wire dilation_result_2;
+    wire dilation_result_3;
+
+    wire erosion_result_1;
+    wire erosion_result_2;
+    wire erosion_result_3;
+
+    // Intermediate wires for the color channels
+    wire [7:0] r, g, b;
+    wire [11:0] gray;
+
+    // Extract the RGB channels
+    assign r = {rgb_pixel_original[11:8], 4'b0000}; // Extend to 8 bits
+    assign g = {rgb_pixel_original[7:4], 4'b0000};  // Extend to 8 bits
+    assign b = {rgb_pixel_original[3:0], 4'b0000};  // Extend to 8 bits
+
+    // Compute grayscale value using integer arithmetic
+    // Approximation: gray = (r*77 + g*150 + b*29) >> 8;
+    assign gray = (r * 8'd77 + g * 8'd150 + b * 8'd29) >> 8;
+
+    //assign binarize_pixel = (a_video_on) ? ((gray  > 32) ? 1 : 0) : 0;
+
+    // Intermediate wires for the color channels
+    wire [7:0] r_1, g_1, b_1;
+    wire [11:0] gray_1;
+
+    // Extract the RGB channels
+    assign r_1 = {rgb_pixel_in[11:8], 4'b0000}; // Extend to 8 bits
+    assign g_1 = {rgb_pixel_in[7:4], 4'b0000};  // Extend to 8 bits
+    assign b_1 = {rgb_pixel_in[3:0], 4'b0000};  // Extend to 8 bits
+
+    // Compute grayscale value using integer arithmetic
+    // Approximation: gray = (r*77 + g*150 + b*29) >> 8;
+    assign gray_1 = (r_1 * 8'd77 + g_1 * 8'd150 + b_1 * 8'd29) >> 8;
+
+    assign binarize_pixel = (a_video_on) ? (((gray_1[3:0] < 4) || (gray_1[3:0] > 9)) ? 0 : 1) : 0;
     
-    // reg [6:0] count = 0;    
-    // reg clk_state = 0;
+    // Instantiate dilate module
+    erosion erosion_inst_1 (
+        .clk(w_p_tick),
+        .reset(reset),
+        .a_video_on(a_video_on),
+        .pixel_in(binarize_pixel),
+        .erosion_result(erosion_result_1)
+    );
+
+    // erosion erosion_inst_2 (
+    //     .clk(w_p_tick),
+    //     .reset(reset),
+    //     .a_video_on(a_video_on),
+    //     .pixel_in(erosion_result_1), 
+    //     .erosion_result(erosion_result_2)
+    // );
+
+    // erosion erosion_inst_3 (
+    //     .clk(w_p_tick),
+    //     .reset(reset),
+    //     .a_video_on(a_video_on),
+    //     .pixel_in(erosion_result_2),
+    //     .erosion_result(erosion_result_3)
+    // );
+
+    // Instantiate dilate module
+   dilation dilate_inst_1 (
+       .clk(w_p_tick),
+       .reset(reset),
+       .a_video_on(a_video_on),
+       .pixel_in(erosion_result_1),
+       .dilation_result(dilation_result_1)
+   );
+
+   dilation dilate_inst_2 (
+       .clk(w_p_tick),
+       .reset(reset),
+       .a_video_on(a_video_on),
+       .pixel_in(dilation_result_1),
+       .dilation_result(dilation_result_2)
+   );
+
+   dilation dilate_inst_3 (
+       .clk(w_p_tick),
+       .reset(reset),
+       .a_video_on(a_video_on),
+       .pixel_in(dilation_result_2),
+       .dilation_result(dilation_result_3)
+   );
 
     // Instantiate VGA Controller
     vga_controller vc(
@@ -89,7 +175,6 @@ module top(
 
     assign pixel_addr = (a_video_on) ? (w_x + w_y * 192)  :  15'b111111111111111;
     assign pixel_addr_1 = b_video_on ? ((w_x - 195) + w_y * 192) : 15'b111111111111111;
-    assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // control wea for first pass memory
     // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
@@ -180,7 +265,7 @@ module top(
    buffer buffer_inst_0 (
        .clk(w_n_tick),
        .video_on(a_video_on),
-       .pixel_in(binarize_pixel),
+       .pixel_in(dilation_result_3),
        .x(w_x),
        .y(w_y),
        .reset(reset),
@@ -211,10 +296,15 @@ module top(
     wire [11:0] sb;
     wire [11:0] background;
     reg [11:0] rgb_reg;
-    
+
     assign sa = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : 12'b000000000000;
-    assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
+    // assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
     assign background = 12'b000000000000;
+
+    // assign sa = (a_video_on) ? {binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel, binarize_pixel} : 12'b000000000000;
+    assign sb = (b_video_on) ? {gray[3:0], gray[3:0], gray[3:0]} : 12'b000000000000;
+    
+    // assign sa = (a_video_on) ? {dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result, dilation_result} : 12'b000000000000;
 
     //add rgb buffer
     always @(posedge clk_100MHz) begin
