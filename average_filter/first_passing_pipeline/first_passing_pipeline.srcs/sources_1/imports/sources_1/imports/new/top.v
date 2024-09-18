@@ -136,7 +136,7 @@ module top(
    buffer buffer_inst_0 (
        .clk(w_n_tick),
        .video_on(a_video_on),
-       .pixel_in(preprocess_result),
+       .pixel_in(preprocessing_image),
        .x(w_x),
        .y(w_y),
        .reset(reset),
