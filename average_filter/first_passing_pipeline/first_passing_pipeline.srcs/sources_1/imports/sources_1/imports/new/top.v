@@ -183,12 +183,12 @@ module top(
     wire data2;
     wire preprocessing_image;
     blk_mem_gen_3 blk_mem_gen_3_inst (
-        .clka(clk_100MHz),
+        .clka(w_n_tick),
         .wea(a_video_on),
         .addra(pixel_addr),
         .dina(preprocess_result),
         .douta(data1),
-        .clkb(clk_100MHz),
+        .clkb(w_n_tick),
         .web(1'b0),
         .addrb(pixel_addr),
         .dinb(data2),
