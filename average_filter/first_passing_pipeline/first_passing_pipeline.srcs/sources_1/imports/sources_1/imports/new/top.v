@@ -42,12 +42,12 @@ module top(
     wire SCLR;
     wire ena = 1'b1;
 
-    reg label_write_1;
-    reg label_write_2;
+    wire label_write_1;
+    wire label_write_2;
     wire [9:0] w_x, w_y; 
     wire hsync_0, vsync_0;
-    reg clear;
-    reg [1:0] pass_state;
+    wire clear;
+    wire [1:0] pass_state;
     wire cclk;
     wire w_p_tick;
     wire binarize_pixel;
@@ -67,9 +67,8 @@ module top(
     assign a_video_on = (w_x < 192 && w_y < 144) ? 1 : 0;
     assign b_video_on = (w_x < 387 && w_x >= 195 && w_y < 144) ? 1 : 0;
 
-    // Instantiate clk_100MHz_1
-    wire clk_100MHz_1;
     wire [9:0] w_x_0, w_y_0;
+    wire preprocess_result;
     
     // reg [6:0] count = 0;    
     // reg clk_state = 0;
@@ -87,129 +86,32 @@ module top(
         .cclk(cclk)
     );
 
-    // Area a --------------------------------------------
-    // Intermediate wires for the color channels of rgb_pixel_in
-    wire [7:0] r_a, g_a, b_a;  // Extend to 8 bits
-    wire signed [15:0] cb_temp_a, cr_temp_a; // Temporary variables for Cb and Cr
-    wire [15:0] Cb_a, Cr_a;
-    wire [7:0] gray_a;
-
-    // Extract the RGB channels
-    assign r_a = {rgb_pixel_in[11:8], 4'b0}; // Extend to 8 bits
-    assign g_a = {rgb_pixel_in[7:4], 4'b0};  // Extend to 8 bits
-    assign b_a = {rgb_pixel_in[3:0], 4'b0};  // Extend to 8 bits
-
-    // Compute grayscale value using integer arithmetic
-    // Approximation: gray_a = (r_a*77 + g_a*150 + b_a*29) >> 8;
-    assign gray_a = (r_a * 8'd77 + g_a * 8'd150 + b_a * 8'd29) >> 8;
-
-    // Compute Cb and Cr values using the standard YCbCr formulas
-    assign Cb_a = 16'd128 - ((16'd37 * r_a + 16'd74 * g_a - 16'd111 * b_a) >> 8);
-    assign Cr_a = 16'd128 + ((16'd112 * r_a - 16'd94 * g_a - 16'd18 * b_a) >> 8);
-
-    // Assign binary pixel values based on the Cb and Cr ranges
-    assign binarize_pixel_a = (a_video_on) ? (((80 < Cb_a) && (Cb_a < 120) && (140 < Cr_a) && (Cr_a < 165)) ? 1 : 0) : 0;
-    // assign binarize_pixel_b = (b_video_on) ? (((80 < Cb_b) && (Cb_b < 120) && (140 < Cr_b) && (Cr_b < 165)) ? 1 : 0) : 0;
-    //--------------------------------------------
-
-    assign pixel_addr = (a_video_on) ? (w_x + w_y * 192)  :  15'b111111111111111;
-    assign pixel_addr_1 = b_video_on ? ((w_x - 195) + w_y * 192) : 15'b111111111111111;
-    assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
-
-    // Instantiate dilation module
-    wire dilation_result_1;
-    wire dilation_result_2;
-    wire dilation_result_3;
-
-    dilation dilation_inst_1 (
+    // Instantiate preprocessor
+    preprocess preprocessor_inst (
         .clk(w_n_tick),
         .reset(reset),
+        .rgb_pixel_in(rgb_pixel_in),
+        .w_x(w_x),
+        .w_y(w_y),
         .a_video_on(a_video_on),
-        .pixel_in(binarize_pixel),
-        .dilation_result(dilation_result_1)
+        .b_video_on(b_video_on),
+        .binarize_pixel(binarize_pixel),
+        .pixel_addr(pixel_addr),
+        .pixel_addr_1(pixel_addr_1),
+        .result(preprocess_result)
     );
 
-    dilation dilation_inst (
-        .clk(w_n_tick),
+    // Instantiate controller
+    controller controller_inst (
+        .clk(clk_100MHz),
         .reset(reset),
-        .a_video_on(a_video_on),
-        .pixel_in(dilation_result_1),
-        .dilation_result(dilation_result_2)
-    );
-
-    dilation dilation_inst_2 (
-        .clk(w_n_tick),
-        .reset(reset),
-        .a_video_on(a_video_on),
-        .pixel_in(dilation_result_2),
-        .dilation_result(dilation_result_3)
-    );
-
-    // control wea for first pass memory
-    // run second pass after first pass is done, during the second pass, wea is 0, so the memory is read only
-    // otherwise, wea is 1, so the memory is write only
-    parameter FIRST_PASS = 2'b00, WaitForSecondPass = 2'b01, SECOND_PASS = 2'b10, DONE = 2'b11;
-        
-    always @(negedge w_p_tick or posedge reset) begin
-        if (reset) begin
-            pass_state <= FIRST_PASS;
-            label_write_1 <= 1;
-            clear <= 1;
-        end else begin
-            case (pass_state)
-                FIRST_PASS: begin
-                    clear <= 0;
-                    if (w_x == 192 && w_y == 144) begin
-                        pass_state <= WaitForSecondPass;
-                        label_write_1 <= 0;  // Disable writing for the second pass
-                        label_write_2 <= 0;  // Enable writing for the second pass
-                    end
-                end
-
-                WaitForSecondPass: begin
-                    if (w_x == 0 && w_y == 0) begin
-                        pass_state <= SECOND_PASS;
-                        label_write_1 <= 0;  // Disable writing for the second pass
-                        label_write_2 <= 1;  // Enable writing for the second pass
-                    end
-                end
-
-                SECOND_PASS: begin
-                    if (w_x == 192 && w_y == 144) begin
-                        pass_state <= DONE;
-                        label_write_2 <= 0;  // Disable writing for the second pass
-                    end
-                end
-
-                DONE: begin
-                    if (w_x == 799 && w_y == 524) begin  // Coordinates (17,17) for a new frame
-                        clear <= 1;
-                    end
-                        
-                    if (w_x == 0 && w_y == 0) begin  // Coordinates (17,17) for a new frame
-                        pass_state <= FIRST_PASS;
-                        label_write_1 <= 1;  // Enable writing for the first pass again
-                        label_write_2 <= 0;  // Disable writing for the second pass
-                        clear <= 0;
-                    end
-                end
-            endcase
-        end
-    end
-
-    // Instantiate blk_mem_gen_1
-    blk_mem_gen_1 blk_mem_gen_1_inst (
-        .clka(clk_100MHz),
-        .wea(wea),
-        .addra(pixel_addr),
-        .dina(data),
-        .douta(rgb_pixel_in),
-        .clkb(w_p_tick),
-        .web(wea),
-        .addrb(pixel_addr_1),
-        .dinb(data),
-        .doutb(rgb_pixel_original),
-        .ena(ena)
+        .w_p_tick(w_p_tick),
+        .w_x(w_x),
+        .w_y(w_y),
+        .label_write_1(label_write_1),
+        .label_write_2(label_write_2),
+        .pass_state(pass_state),
+        .clear(clear)
     );
 
     // Instantiate blk_mem_gen_0 (store the result(left_label) of first pass)
@@ -234,7 +136,7 @@ module top(
    buffer buffer_inst_0 (
        .clk(w_n_tick),
        .video_on(a_video_on),
-       .pixel_in(dilation_result_3),
+       .pixel_in(preprocess_result),
        .x(w_x),
        .y(w_y),
        .reset(reset),
@@ -261,16 +163,51 @@ module top(
         .min_label_out(final_label_out)
     );
     
+        // Instantiate blk_mem_gen_1
+    blk_mem_gen_1 blk_mem_gen_1_inst (
+        .clka(clk_100MHz),
+        .wea(wea),
+        .addra(pixel_addr),
+        .dina(data),
+        .douta(rgb_pixel_in),
+        .clkb(w_p_tick),
+        .web(wea),
+        .addrb(pixel_addr_1),
+        .dinb(data),
+        .doutb(rgb_pixel_original),
+        .ena(ena)
+    );
+    
+        // Instantiate blk_mem_gen_3 (store the preprocessing image)
+    wire data1;
+    wire data2;
+    wire preprocessing_image;
+    blk_mem_gen_3 blk_mem_gen_3_inst (
+        .clka(clk_100MHz),
+        .wea(a_video_on),
+        .addra(pixel_addr),
+        .dina(preprocess_result),
+        .douta(data1),
+        .clkb(clk_100MHz),
+        .web(1'b0),
+        .addrb(pixel_addr),
+        .dinb(data2),
+        .doutb(preprocessing_image),
+        .enb(ena)
+    );
+    
     wire [11:0] sa;
     wire [11:0] sb;
     wire [11:0] background;
     reg [11:0] rgb_reg;
     
-    // assign sa = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : 12'b000000000000;
+    assign sa = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : 12'b000000000000;
     assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
     assign background = 12'b000000000000;
 
-    assign sa = (a_video_on) ? {binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a, binarize_pixel_a} : 12'b000000000000;
+    // assign sa = (a_video_on) ? {preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result} : 12'b000000000000;
+
+
 
     //add rgb buffer
     always @(posedge clk_100MHz) begin
