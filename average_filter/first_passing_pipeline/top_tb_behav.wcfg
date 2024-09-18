@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000000 ms"></ZoomStartTime>
-      <ZoomEndTime time="23.271241381 ms"></ZoomEndTime>
-      <Cursor1Time time="1.350135000 ms"></Cursor1Time>
+      <ZoomStartTime time="85,749.345000 us"></ZoomStartTime>
+      <ZoomEndTime time="85,776.865001 us"></ZoomEndTime>
+      <Cursor1Time time="85,760.135000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="191"></NameColumnWidth>
+      <NameColumnWidth column_width="167"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
+   <WVObjectSize size="28" />
    <wvobject fp_name="/top_tb/clk_100MHz" type="logic">
       <obj_property name="ElementShortName">clk_100MHz</obj_property>
       <obj_property name="ObjectShortName">clk_100MHz</obj_property>
@@ -39,14 +39,17 @@
    <wvobject fp_name="/top_tb/rgb" type="array">
       <obj_property name="ElementShortName">rgb[11:0]</obj_property>
       <obj_property name="ObjectShortName">rgb[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/w_x" type="array">
       <obj_property name="ElementShortName">w_x[9:0]</obj_property>
       <obj_property name="ObjectShortName">w_x[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/w_y" type="array">
       <obj_property name="ElementShortName">w_y[9:0]</obj_property>
       <obj_property name="ObjectShortName">w_y[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/binarize_pixel" type="logic">
       <obj_property name="ElementShortName">binarize_pixel</obj_property>
@@ -55,10 +58,12 @@
    <wvobject fp_name="/top_tb/left_label" type="array">
       <obj_property name="ElementShortName">left_label[5:0]</obj_property>
       <obj_property name="ObjectShortName">left_label[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/final_label_out" type="array">
       <obj_property name="ElementShortName">final_label_out[5:0]</obj_property>
       <obj_property name="ObjectShortName">final_label_out[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/cclk" type="logic">
       <obj_property name="ElementShortName">cclk</obj_property>
@@ -75,6 +80,7 @@
    <wvobject fp_name="/top_tb/pass_state" type="array">
       <obj_property name="ElementShortName">pass_state[1:0]</obj_property>
       <obj_property name="ObjectShortName">pass_state[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/clear" type="logic">
       <obj_property name="ElementShortName">clear</obj_property>
@@ -91,17 +97,53 @@
    <wvobject fp_name="/top_tb/pixel_addr" type="array">
       <obj_property name="ElementShortName">pixel_addr[14:0]</obj_property>
       <obj_property name="ObjectShortName">pixel_addr[14:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/mem_label_out" type="array">
       <obj_property name="ElementShortName">mem_label_out[5:0]</obj_property>
       <obj_property name="ObjectShortName">mem_label_out[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/display_signal" type="array">
       <obj_property name="ElementShortName">display_signal[5:0]</obj_property>
       <obj_property name="ObjectShortName">display_signal[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/dilation_result" type="logic">
-      <obj_property name="ElementShortName">dilation_result</obj_property>
-      <obj_property name="ObjectShortName">dilation_result</obj_property>
+   <wvobject fp_name="/top_tb/rgb_pixel_in" type="array">
+      <obj_property name="ElementShortName">rgb_pixel_in[11:0]</obj_property>
+      <obj_property name="ObjectShortName">rgb_pixel_in[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/Cb_a" type="array">
+      <obj_property name="ElementShortName">Cb_a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Cb_a[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/Cr_a" type="array">
+      <obj_property name="ElementShortName">Cr_a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Cr_a[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/binarize_pixel_a" type="logic">
+      <obj_property name="ElementShortName">binarize_pixel_a</obj_property>
+      <obj_property name="ObjectShortName">binarize_pixel_a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/Cb_b" type="array">
+      <obj_property name="ElementShortName">Cb_b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Cb_b[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/Cr_b" type="array">
+      <obj_property name="ElementShortName">Cr_b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Cr_b[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/binarize_pixel_b" type="logic">
+      <obj_property name="ElementShortName">binarize_pixel_b</obj_property>
+      <obj_property name="ObjectShortName">binarize_pixel_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dilation_result_3" type="logic">
+      <obj_property name="ElementShortName">dilation_result_3</obj_property>
+      <obj_property name="ObjectShortName">dilation_result_3</obj_property>
    </wvobject>
 </wave_config>
