@@ -195,22 +195,33 @@ module top(
         .doutb(preprocessing_image),
         .enb(ena)
     );
+
+    // Instantiate draw_face_frame module
+    wire [5:0] final_result;
+
+   draw_face_frame draw_face_frame_inst (
+       .clk(clk_100MHz),
+       .reset(reset),
+       .pixel_in(mem_label_out_2),
+       .video_on(a_video_on),
+       .x(w_x),
+       .y(w_y),
+       .pixel_out(final_result)
+   );
     
     wire [11:0] sa;
     wire [11:0] sb;
+    wire [11:0] sc;
     wire [11:0] background;
     reg [11:0] rgb_reg;
     
-    assign sa = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : 12'b000000000000;
+    assign sa = (a_video_on) ? {4'b0000, final_result, 2'b00} : 12'b000000000000;
     assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
+    // assign sc = (a_video_on) ? 12'b111111111111 : 12'b000000000000;
     assign background = 12'b000000000000;
 
-    // assign sa = (a_video_on) ? {preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result, preprocess_result} : 12'b000000000000;
-
-
-
     //add rgb buffer
-    always @(posedge clk_100MHz) begin
+    always @(posedge w_n_tick) begin
         rgb_reg <= sa + sb + background;
     end
 
