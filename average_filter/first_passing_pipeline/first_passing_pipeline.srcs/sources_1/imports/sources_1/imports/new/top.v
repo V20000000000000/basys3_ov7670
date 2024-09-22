@@ -10,6 +10,7 @@ module top(
     output wire [5:0] left_label,
     output wire [5:0] mem_label_out,
     output wire [5:0] final_label_out,
+    output wire [5:0] mem_label_out_2,
     output wire cclk,
     output wire w_p_tick,
     output wire w_n_tick,
@@ -17,14 +18,17 @@ module top(
     output reg clear,
     output reg label_write_1,
     output reg label_write_2,
-    output wire [16:0] pixel_addr,
-    output wire [16:0] pixel_addr_1,
-    output wire hsync_0,
-    output wire vsync_0,
-    output wire clk_100MHz_1,
-    output wire [9:0] w_x_0,
-    output wire [9:0] w_y_0,
-    output wire [5:0] display_signal*/
+    output wire [14:0] pixel_addr,
+    output wire [14:0] pixel_addr_1,
+    output wire frame_mem_wea,
+    output wire frame,
+    output wire [11:0] sc,
+    output wire rectangle,
+    output wire [9:0] Xmin,
+    output wire [9:0] Ymin,
+    output wire [9:0] Xmax,
+    output wire [9:0] Ymax,
+    output wire [9:0] test_reg*/
 );
 
     wire w_video_on;
@@ -53,19 +57,21 @@ module top(
     wire binarize_pixel;
     wire [14:0] pixel_addr;
     wire [14:0] pixel_addr_1;
+    wire [14:0] pixel_addr_2;
     wire [5:0] left_label;
     wire [5:0] mem_label_out;
     wire [5:0] final_label_out;
     wire wea = 1'b0;
-    wire a_video_on;
+    
     wire [5:0] display_signal;
     wire [5:0] mem_label_out_2;
     wire w_n_tick;
 
-    assign w_n_tick = ~w_p_tick;
+    wire a_video_on;
+    wire b_video_on;
+    wire [11:0] c_video_on;
 
-    assign a_video_on = (w_x < 192 && w_y < 144) ? 1 : 0;
-    assign b_video_on = (w_x < 387 && w_x >= 195 && w_y < 144) ? 1 : 0;
+    assign w_n_tick = ~w_p_tick;
 
     wire [9:0] w_x_0, w_y_0;
     wire preprocess_result;
@@ -96,8 +102,6 @@ module top(
         .a_video_on(a_video_on),
         .b_video_on(b_video_on),
         .binarize_pixel(binarize_pixel),
-        .pixel_addr(pixel_addr),
-        .pixel_addr_1(pixel_addr_1),
         .result(preprocess_result)
     );
 
@@ -106,8 +110,13 @@ module top(
         .clk(clk_100MHz),
         .reset(reset),
         .w_p_tick(w_p_tick),
+        .a_video_on(a_video_on),
+        .b_video_on(b_video_on),
         .w_x(w_x),
         .w_y(w_y),
+        .pixel_addr(pixel_addr),
+        .pixel_addr_1(pixel_addr_1),
+        .pixel_addr_2(pixel_addr_2),
         .label_write_1(label_write_1),
         .label_write_2(label_write_2),
         .pass_state(pass_state),
@@ -197,32 +206,78 @@ module top(
     );
 
     // Instantiate draw_face_frame module
-    wire [5:0] final_result;
+    wire frame_mem_wea;
+    wire frame;
+    wire [9:0] Xmin;
+    wire [9:0] Ymin;
+    wire [9:0] Xmax;
+    wire [9:0] Ymax;
+    draw_face_frame draw_face_frame_inst (
+        .clk(clk_100MHz),
+        .reset(reset),
+        .pixel_in(mem_label_out_2),
+        .pass_state(pass_state),
+        .video_on(a_video_on),
+        .x(w_x),
+        .y(w_y),
+        .frame_mem_wea(frame_mem_wea),
+        .pixel_out(frame),
+        .Xmin(Xmin),
+        .Ymin(Ymin),
+        .Xmax(Xmax),
+        .Ymax(Ymax),
+        .test_reg(test_reg)
+    );
 
-   draw_face_frame draw_face_frame_inst (
-       .clk(clk_100MHz),
-       .reset(reset),
-       .pixel_in(mem_label_out_2),
-       .video_on(a_video_on),
-       .x(w_x),
-       .y(w_y),
-       .pixel_out(final_result)
-   );
+    // frame memory
+    wire data3;
+    wire data4;
+    wire rectangle;
+    frame_mem frame_memory_inst (
+        .clka(w_n_tick),
+        .wea(frame_mem_wea),
+        .addra(pixel_addr),
+        .dina(frame),
+        .douta(data3),
+        .clkb(w_n_tick),
+        .web(1'b0),
+        .addrb(pixel_addr),
+        .dinb(data4),
+        .doutb(rectangle),
+        .enb(1'b1)
+    );
     
     wire [11:0] sa;
     wire [11:0] sb;
-    wire [11:0] sc;
     wire [11:0] background;
     reg [11:0] rgb_reg;
+
+    wire [11:0] sc;
+    wire [11:0] sd;
+
+    // always @(posedge clk_100MHz) begin
+    reg [11:0] sr1;
+    reg [11:0] sr2;
+    reg [11:0] sr3;
+    reg [11:0] sr4;
+    reg [11:0] sr5;
+    reg [11:0] sr6;
+    reg rec;
+
+    always @(posedge clk_100MHz) begin
+        rec <= rectangle;
+    end
     
-    assign sa = (a_video_on) ? {4'b0000, final_result, 2'b00} : 12'b000000000000;
+    assign sa = (a_video_on) ? rgb_pixel_in : 12'b000000000000;
     assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
-    // assign sc = (a_video_on) ? 12'b111111111111 : 12'b000000000000;
+    assign sc = (a_video_on) ? {rec, rec, rec, rec, 8'b00000000} : 12'b000000000000;
+    assign sd = (rec) ? sc : sa;
+
     assign background = 12'b000000000000;
 
     //add rgb buffer
-    always @(posedge w_n_tick) begin
-        rgb_reg <= sa + sb + background;
+    always @(posedge clk_100MHz) begin
+        rgb_reg <= sd + background;
     end
 
     // assign rgb = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : ((b_video_on) ? rgb_pixel_in : (w_video_on ? 12'b111111111111 : 12'b000000000000));

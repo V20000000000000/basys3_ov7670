@@ -28,8 +28,6 @@ module preprocess(
     input wire a_video_on,
     input wire b_video_on,
     output wire binarize_pixel,
-    output wire [14:0] pixel_addr,
-    output wire [14:0] pixel_addr_1,
     output wire result
 );
 
@@ -57,10 +55,6 @@ module preprocess(
     // Assign binary pixel values based on the Cb and Cr ranges
     assign binarize_pixel_a = (a_video_on) ? (((80 < Cb_a) && (Cb_a < 120) && (140 < Cr_a) && (Cr_a < 165)) ? 1 : 0) : 0;
 
-    // Calculate pixel addresses
-    assign pixel_addr = (a_video_on) ? (w_x + w_y * 192) : 15'b111111111111111;
-    assign pixel_addr_1 = (b_video_on) ? ((w_x - 195) + w_y * 192) : 15'b111111111111111;
-
     // Output binary pixel for final processing
     assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
@@ -77,6 +71,8 @@ module preprocess(
     // Instantiate dilation modules
     wire dilation_result_1;
     wire dilation_result_2;
+    wire dilation_result_3;
+    wire erosion_result_1;
 
     dilation dilation_inst_1 (
         .clk(clk),
@@ -99,7 +95,24 @@ module preprocess(
         .reset(reset),
         .a_video_on(a_video_on),
         .pixel_in(dilation_result_2),
-        .dilation_result(result)
+        .dilation_result(dilation_result_3)
+    );
+
+    erosion erosion_inst_1 (
+        .clk(clk),
+        .reset(reset),
+        .a_video_on(a_video_on),
+        .pixel_in(dilation_result_3),
+        .erosion_result(erosion_result_1)
+    );
+
+    // Output the final result
+    erosion erosion_inst_2 (
+        .clk(clk),
+        .reset(reset),
+        .a_video_on(a_video_on),
+        .pixel_in(erosion_result_1),
+        .erosion_result(result)
     );
 
 endmodule
