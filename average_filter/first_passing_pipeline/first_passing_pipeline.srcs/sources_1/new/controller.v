@@ -41,16 +41,16 @@ module controller (
 );
 
     wire a, b;  
-    parameter shift = 6;
+    parameter shift = 10;
 
     // Calculate pixel addresses
     assign pixel_addr = (a) ? (w_x + w_y * 192) : 15'b111111111111111;
-    assign pixel_addr_1 = (b) ? ((w_x - 195) + w_y * 192) : 15'b111111111111111;
-    assign pixel_addr_2 = (a) ? (w_x + w_y * 192 - shift) : 15'b111111111111111;
+    assign pixel_addr_1 = (b) ? ((w_x - shift) + (w_y - shift) * 192) : 15'b111111111111111;
+    assign pixel_addr_2 = (a) ? (w_x + (w_y - 1) * 192) : 15'b111111111111111;
 
     // Video signal on/off
     assign a = (w_x < 192 && w_y < 144) ? 1 : 0;
-    assign b = (w_x < 387 && w_x >= 195 && w_y < 144) ? 1 : 0;
+    assign b = (w_x < (192 + shift) && w_x >= shift && w_y < (144 + shift) && w_y >= shift) ? 1 : 0;
 
     assign a_video_on = a;
     assign b_video_on = b;

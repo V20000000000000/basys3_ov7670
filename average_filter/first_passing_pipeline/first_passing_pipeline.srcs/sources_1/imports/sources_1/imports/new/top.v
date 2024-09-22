@@ -247,40 +247,14 @@ module top(
         .enb(1'b1)
     );
     
-    wire [11:0] sa;
-    wire [11:0] sb;
-    wire [11:0] background;
-    reg [11:0] rgb_reg;
-
-    wire [11:0] sc;
-    wire [11:0] sd;
-
-    // always @(posedge clk_100MHz) begin
-    reg [11:0] sr1;
-    reg [11:0] sr2;
-    reg [11:0] sr3;
-    reg [11:0] sr4;
-    reg [11:0] sr5;
-    reg [11:0] sr6;
-    reg rec;
-
-    always @(posedge clk_100MHz) begin
-        rec <= rectangle;
-    end
-    
-    assign sa = (a_video_on) ? rgb_pixel_in : 12'b000000000000;
-    assign sb = (b_video_on) ? rgb_pixel_original : 12'b000000000000;
-    assign sc = (a_video_on) ? {rec, rec, rec, rec, 8'b00000000} : 12'b000000000000;
-    assign sd = (rec) ? sc : sa;
-
-    assign background = 12'b000000000000;
-
-    //add rgb buffer
-    always @(posedge clk_100MHz) begin
-        rgb_reg <= sd + background;
-    end
-
-    // assign rgb = (a_video_on) ? {4'b0000, mem_label_out_2, 2'b00} : ((b_video_on) ? rgb_pixel_in : (w_video_on ? 12'b111111111111 : 12'b000000000000));
-    assign rgb = rgb_reg; //|| sb || background;
+    // Instantiate display module
+    display display_inst (
+        .clk_100MHz(clk_100MHz),
+        .a_video_on(a_video_on),
+        .b_video_on(b_video_on),
+        .rectangle(rectangle),
+        .rgb_pixel_original(rgb_pixel_original),
+        .rgb(rgb)
+    );
 
 endmodule
