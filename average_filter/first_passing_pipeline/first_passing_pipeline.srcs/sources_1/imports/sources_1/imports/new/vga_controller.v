@@ -26,6 +26,7 @@ module vga_controller(
     output hsync,       // horizontal sync
     output vsync,       // vertical sync
     output p_tick,      // the 25MHz pixel/second rate signal, pixel tick
+    output n_tick,
     output [9:0] x,     // pixel count/position of pixel x, max 0-799
     output [9:0] y,     // pixel count/position of pixel y, max 0-524
     output cclk
@@ -129,6 +130,7 @@ module vga_controller(
     assign x      = h_count_reg;
     assign y      = v_count_reg;
     assign p_tick = w_25MHz;
+    assign n_tick = ~w_25MHz;
     assign cclk = ~w_12MHz;
 
 endmodule

@@ -64,32 +64,16 @@ module top(
     wire b_video_on;
     wire [11:0] c_video_on;
 
-    assign w_n_tick = ~w_p_tick;
-
     wire [9:0] w_x_0, w_y_0;
     wire preprocess_result;
     
     // reg [6:0] count = 0;    
     // reg clk_state = 0;
 
-    // Instantiate VGA Controller
-    vga_controller vc(
-        .clk_100MHz(clk_100MHz),     
-        .reset(reset), 
-        .video_on(w_video_on),     
-        .hsync(hsync),    
-        .vsync(vsync), 
-        .p_tick(w_p_tick), 
-        .x(w_x), 
-        .y(w_y),
-        .cclk(cclk)
-    );
-
     // Instantiate controller
     controller controller_inst (
         .clk(clk_100MHz),
         .reset(reset),
-        .w_p_tick(w_p_tick),
         .a_video_on(a_video_on),
         .b_video_on(b_video_on),
         .w_x(w_x),
@@ -100,7 +84,11 @@ module top(
         .label_write_1(label_write_1),
         .label_write_2(label_write_2),
         .pass_state(pass_state),
-        .clear(clear)
+        .clear(clear),
+        .hsync(hsync),
+        .vsync(vsync),
+        .w_n_tick(w_n_tick),
+        .w_p_tick(w_p_tick)
     );
         
     // Instantiate blk_mem_gen_1

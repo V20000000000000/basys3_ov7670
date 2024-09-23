@@ -26,19 +26,37 @@
 module controller (
     input wire clk,             // System clock
     input wire reset,           // Reset signal
-    input wire w_p_tick,        // Tick signal for synchronization
-    input wire [9:0] w_x,       // Current X coordinate
-    input wire [9:0] w_y,       // Current Y coordinate
+    output wire [9:0] w_x,       // Current X coordinate
+    output wire [9:0] w_y,       // Current Y coordinate
     output reg label_write_1,   // Write enable signal for the first pass
     output reg label_write_2,   // Write enable signal for the second pass
     output wire [14:0] pixel_addr,  // Pixel address for the first pass
     output wire [14:0] pixel_addr_1,  // Pixel address for the second pass
     output wire [14:0] pixel_addr_2,  // Pixel address for the second pass
+    output wire w_p_tick,       // Tick signal for synchronization
+    output wire w_n_tick,       // Tick signal for synchronization
     output reg [1:0] pass_state,      // State signal
-    output reg clear,           // Clear signal
+    output reg clear,           // Clear signal 
     output wire a_video_on, // video signal on/off
-    output wire b_video_on // video signal on/off
+    output wire b_video_on, // video signal on/off
+    output wire hsync,          // Horizontal synchronization signal
+    output wire vsync           // Vertical synchronization signal
 );
+
+    wire w_video_on;  // Video signal on/off
+
+    // Instantiate VGA Controller
+    vga_controller vc(
+        .clk_100MHz(clk),     
+        .reset(reset), 
+        .video_on(w_video_on),     
+        .hsync(hsync),    
+        .vsync(vsync), 
+        .p_tick(w_p_tick), 
+        .n_tick(w_n_tick),
+        .x(w_x), 
+        .y(w_y)
+    );
 
     wire a, b;  
     parameter shift = 10;
