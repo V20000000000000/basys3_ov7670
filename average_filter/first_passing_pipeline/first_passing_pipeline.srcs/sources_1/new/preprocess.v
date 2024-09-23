@@ -56,7 +56,7 @@ module preprocess(
     assign binarize_pixel_a = (a_video_on) ? (((80 < Cb_a) && (Cb_a < 120) && (140 < Cr_a) && (Cr_a < 165)) ? 1 : 0) : 0;
 
     // Output binary pixel for final processing
-    assign binarize_pixel = binarize_pixel_a;
+    assign binarize_pixel = (rgb_pixel_in == 12'b0) ? 0 : 1;
 
     // Instantiate erosion module
     wire erosion_result;
@@ -72,10 +72,7 @@ module preprocess(
     wire dilation_result_1;
     wire dilation_result_2;
     wire dilation_result_3;
-    wire dilation_result_4;
-    wire dilation_result_5;
     wire erosion_result_1;
-    wire erosion_result_2;
 
     dilation dilation_inst_1 (
         .clk(clk),
@@ -101,19 +98,11 @@ module preprocess(
         .dilation_result(dilation_result_3)
     );
 
-    dilation dilation_inst_3 (
-        .clk(clk),
-        .reset(reset),
-        .a_video_on(a_video_on),
-        .pixel_in(dilation_result_3),
-        .dilation_result(dilation_result_4)
-    );
-
     erosion erosion_inst_1 (
         .clk(clk),
         .reset(reset),
         .a_video_on(a_video_on),
-        .pixel_in(dilation_result_4),
+        .pixel_in(dilation_result_3),
         .erosion_result(erosion_result_1)
     );
 
@@ -123,14 +112,6 @@ module preprocess(
         .reset(reset),
         .a_video_on(a_video_on),
         .pixel_in(erosion_result_1),
-        .erosion_result(erosion_result_2)
-    );
-
-    erosion erosion_inst_3 (
-        .clk(clk),
-        .reset(reset),
-        .a_video_on(a_video_on),
-        .pixel_in(erosion_result_2),
         .erosion_result(result)
     );
 
