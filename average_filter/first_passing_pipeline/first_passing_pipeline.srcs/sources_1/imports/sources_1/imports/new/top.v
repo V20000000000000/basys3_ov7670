@@ -3,72 +3,23 @@ module top(
     input reset,
     output hsync,
     output vsync,
-    output [11:0] rgb/*, 
-    output [9:0] w_x,
-    output [9:0] w_y,
-    output wire w_p_tick,
-    output wire w_n_tick,
-    output reg [1:0] pass_state,
-    output reg clear,
-    output reg label_write_1,
-    output reg label_write_2,
-    output wire a_video_on,
-    output wire b_video_on,
-    output wire [14:0] pixel_addr,
-    output wire [14:0] pixel_addr_1,
-    output wire [11:0] rgb_pixel_in,    
-    output wire [11:0] rgb_pixel_original,
-    output wire preprocess_result,
-    output wire preprocessing_image,
-    output wire [5:0] label,
-    output wire display_signal*/
+    output [11:0] rgb
 );
 
     wire w_video_on;
-    
-    wire [11:0] rgb_pixel_in;
-    wire [11:0] rgb_pixel_original;
-    wire [11:0] data;
+    wire [11:0] rgb_pixel_in, rgb_pixel_original, data;
     wire [5:0] label;
-
-    wire [5:0] left_up_label;
-    wire [5:0] right_up_label;
-    wire [5:0] up_label;
-    wire [5:0] left_left_label;
-
     wire SCLR;
     wire ena = 1'b1;
-
-    wire label_write_1;
-    wire label_write_2;
-    wire [9:0] w_x, w_y; 
-    wire hsync_0, vsync_0;
+    wire label_write_1, label_write_2;
+    wire [9:0] w_x, w_y;
     wire clear;
     wire [1:0] pass_state;
-    wire cclk;
-    wire w_p_tick;
+    wire w_p_tick, w_n_tick;
     wire binarize_pixel;
-    wire [14:0] pixel_addr;
-    wire [14:0] pixel_addr_1;
-    wire [14:0] pixel_addr_2;
-    wire [5:0] left_label;
-    wire [5:0] mem_label_out;
-    wire [5:0] final_label_out;
-    wire wea = 1'b0;
-    
-    wire display_signal;
-    wire [5:0] mem_label_out_2;
-    wire w_n_tick;
-
-    wire a_video_on;
-    wire b_video_on;
-    wire [11:0] c_video_on;
-
-    wire [9:0] w_x_0, w_y_0;
-    wire preprocess_result;
-    
-    // reg [6:0] count = 0;    
-    // reg clk_state = 0;
+    wire [14:0] pixel_addr, pixel_addr_1, pixel_addr_2;
+    wire preprocess_result, display_signal;
+    wire a_video_on, b_video_on;
 
     // Instantiate controller
     controller controller_inst (
@@ -94,12 +45,12 @@ module top(
     // Instantiate blk_mem_gen_1
     blk_mem_gen_1 blk_mem_gen_1_inst (
         .clka(clk_100MHz),
-        .wea(wea),
+        .wea(1'b0),
         .addra(pixel_addr),
         .dina(data),
         .douta(rgb_pixel_in),
         .clkb(w_n_tick),
-        .web(wea),
+        .web(1'b0),
         .addrb(pixel_addr_1),
         .dinb(data),
         .doutb(rgb_pixel_original),
@@ -161,9 +112,9 @@ module top(
         .a_video_on(a_video_on),
         .b_video_on(b_video_on),
         .rectangle(display_signal),
-        // .rgb_pixel_original({label, label}),
         .rgb_pixel_original(rgb_pixel_original),
         .rgb(rgb)
     );
 
 endmodule
+
