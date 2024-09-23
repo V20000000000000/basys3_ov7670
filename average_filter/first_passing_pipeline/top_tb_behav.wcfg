@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="352.302330 us"></ZoomStartTime>
-      <ZoomEndTime time="417.057654 us"></ZoomEndTime>
-      <Cursor1Time time="406.265100 us"></Cursor1Time>
+      <ZoomStartTime time="969.490911 us"></ZoomStartTime>
+      <ZoomEndTime time="1,055.343938 us"></ZoomEndTime>
+      <Cursor1Time time="1,041.035100 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="155"></NameColumnWidth>
+      <NameColumnWidth column_width="151"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="30" />
+   <WVObjectSize size="21" />
    <wvobject fp_name="/top_tb/clk_100MHz" type="logic">
       <obj_property name="ElementShortName">clk_100MHz</obj_property>
       <obj_property name="ObjectShortName">clk_100MHz</obj_property>
@@ -47,22 +47,6 @@
    <wvobject fp_name="/top_tb/w_y" type="array">
       <obj_property name="ElementShortName">w_y[9:0]</obj_property>
       <obj_property name="ObjectShortName">w_y[9:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/binarize_pixel" type="logic">
-      <obj_property name="ElementShortName">binarize_pixel</obj_property>
-      <obj_property name="ObjectShortName">binarize_pixel</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/left_label" type="array">
-      <obj_property name="ElementShortName">left_label[5:0]</obj_property>
-      <obj_property name="ObjectShortName">left_label[5:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/final_label_out" type="array">
-      <obj_property name="ElementShortName">final_label_out[5:0]</obj_property>
-      <obj_property name="ObjectShortName">final_label_out[5:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/cclk" type="logic">
-      <obj_property name="ElementShortName">cclk</obj_property>
-      <obj_property name="ObjectShortName">cclk</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/w_p_tick" type="logic">
       <obj_property name="ElementShortName">w_p_tick</obj_property>
@@ -96,48 +80,28 @@
       <obj_property name="ElementShortName">pixel_addr_1[14:0]</obj_property>
       <obj_property name="ObjectShortName">pixel_addr_1[14:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/mem_label_out" type="array">
-      <obj_property name="ElementShortName">mem_label_out[5:0]</obj_property>
-      <obj_property name="ObjectShortName">mem_label_out[5:0]</obj_property>
+   <wvobject fp_name="/top_tb/rgb_pixel_in" type="array">
+      <obj_property name="ElementShortName">rgb_pixel_in[11:0]</obj_property>
+      <obj_property name="ObjectShortName">rgb_pixel_in[11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/frame_mem_wea" type="logic">
-      <obj_property name="ElementShortName">frame_mem_wea</obj_property>
-      <obj_property name="ObjectShortName">frame_mem_wea</obj_property>
+   <wvobject fp_name="/top_tb/rgb_pixel_original" type="array">
+      <obj_property name="ElementShortName">rgb_pixel_original[11:0]</obj_property>
+      <obj_property name="ObjectShortName">rgb_pixel_original[11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/mem_label_out_2" type="array">
-      <obj_property name="ElementShortName">mem_label_out_2[5:0]</obj_property>
-      <obj_property name="ObjectShortName">mem_label_out_2[5:0]</obj_property>
+   <wvobject fp_name="/top_tb/preprocess_result" type="logic">
+      <obj_property name="ElementShortName">preprocess_result</obj_property>
+      <obj_property name="ObjectShortName">preprocess_result</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/frame" type="logic">
-      <obj_property name="ElementShortName">frame</obj_property>
-      <obj_property name="ObjectShortName">frame</obj_property>
+   <wvobject fp_name="/top_tb/preprocessing_image" type="logic">
+      <obj_property name="ElementShortName">preprocessing_image</obj_property>
+      <obj_property name="ObjectShortName">preprocessing_image</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/sc" type="logic">
-      <obj_property name="ElementShortName">sc</obj_property>
-      <obj_property name="ObjectShortName">sc</obj_property>
+   <wvobject fp_name="/top_tb/label" type="array">
+      <obj_property name="ElementShortName">label[5:0]</obj_property>
+      <obj_property name="ObjectShortName">label[5:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/rectangle" type="logic">
-      <obj_property name="ElementShortName">rectangle</obj_property>
-      <obj_property name="ObjectShortName">rectangle</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/Xmin" type="array">
-      <obj_property name="ElementShortName">Xmin[9:0]</obj_property>
-      <obj_property name="ObjectShortName">Xmin[9:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/Ymin" type="array">
-      <obj_property name="ElementShortName">Ymin[9:0]</obj_property>
-      <obj_property name="ObjectShortName">Ymin[9:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/Xmax" type="array">
-      <obj_property name="ElementShortName">Xmax[9:0]</obj_property>
-      <obj_property name="ObjectShortName">Xmax[9:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/Ymax" type="array">
-      <obj_property name="ElementShortName">Ymax[9:0]</obj_property>
-      <obj_property name="ObjectShortName">Ymax[9:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/test_reg" type="logic">
-      <obj_property name="ElementShortName">test_reg</obj_property>
-      <obj_property name="ObjectShortName">test_reg</obj_property>
+   <wvobject fp_name="/top_tb/display_signal" type="logic">
+      <obj_property name="ElementShortName">display_signal</obj_property>
+      <obj_property name="ObjectShortName">display_signal</obj_property>
    </wvobject>
 </wave_config>

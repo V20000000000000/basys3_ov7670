@@ -6,29 +6,22 @@ module top(
     output [11:0] rgb/*, 
     output [9:0] w_x,
     output [9:0] w_y,
-    output wire binarize_pixel,
-    output wire [5:0] left_label,
-    output wire [5:0] mem_label_out,
-    output wire [5:0] final_label_out,
-    output wire [5:0] mem_label_out_2,
-    output wire cclk,
     output wire w_p_tick,
     output wire w_n_tick,
     output reg [1:0] pass_state,
     output reg clear,
     output reg label_write_1,
     output reg label_write_2,
+    output wire a_video_on,
+    output wire b_video_on,
     output wire [14:0] pixel_addr,
     output wire [14:0] pixel_addr_1,
-    output wire frame_mem_wea,
-    output wire frame,
-    output wire [11:0] sc,
-    output wire rectangle,
-    output wire [9:0] Xmin,
-    output wire [9:0] Ymin,
-    output wire [9:0] Xmax,
-    output wire [9:0] Ymax,
-    output wire [9:0] test_reg*/
+    output wire [11:0] rgb_pixel_in,    
+    output wire [11:0] rgb_pixel_original,
+    output wire preprocess_result,
+    output wire preprocessing_image,
+    output wire [5:0] label,
+    output wire display_signal*/
 );
 
     wire w_video_on;
@@ -36,7 +29,7 @@ module top(
     wire [11:0] rgb_pixel_in;
     wire [11:0] rgb_pixel_original;
     wire [11:0] data;
-    wire [5:0] label_0;
+    wire [5:0] label;
 
     wire [5:0] left_up_label;
     wire [5:0] right_up_label;
@@ -63,7 +56,7 @@ module top(
     wire [5:0] final_label_out;
     wire wea = 1'b0;
     
-    wire [5:0] display_signal;
+    wire display_signal;
     wire [5:0] mem_label_out_2;
     wire w_n_tick;
 
@@ -92,19 +85,6 @@ module top(
         .cclk(cclk)
     );
 
-    // Instantiate preprocessor
-    preprocess preprocessor_inst (
-        .clk(w_n_tick),
-        .reset(reset),
-        .rgb_pixel_in(rgb_pixel_in),
-        .w_x(w_x),
-        .w_y(w_y),
-        .a_video_on(a_video_on),
-        .b_video_on(b_video_on),
-        .binarize_pixel(binarize_pixel),
-        .result(preprocess_result)
-    );
-
     // Instantiate controller
     controller controller_inst (
         .clk(clk_100MHz),
@@ -122,72 +102,72 @@ module top(
         .pass_state(pass_state),
         .clear(clear)
     );
-
-    // Instantiate blk_mem_gen_0 (store the result(left_label) of first pass)
-    blk_mem_gen_0 blk_mem_gen_0_inst (
-        .clka(clk_100MHz),
-        .wea(label_write_1),
-        .addra(pixel_addr),
-        .dina(left_label),
-        .douta(mem_label_out)
-    );
-    
-    // Instantiate blk_mem_gen_2 (store the result(left_label) of second pass)
-    blk_mem_gen_2 blk_mem_gen_2_inst (
-        .clka(clk_100MHz),
-        .wea(label_write_2),
-        .addra(pixel_addr),
-        .dina(final_label_out),
-        .douta(mem_label_out_2)
-    );
-
-    // Instantiate buffer module
-   buffer buffer_inst_0 (
-       .clk(w_n_tick),
-       .video_on(a_video_on),
-       .pixel_in(preprocessing_image),
-       .x(w_x),
-       .y(w_y),
-       .reset(reset),
-       .left_label_out(left_label),
-       .left_up_label_out(left_up_label),
-       .up_label_out(up_label),
-       .right_up_label_out(right_up_label),
-       .new_label_out(label_0),
-       .state(state),
-       .SCLR(SCLR)
-   );
-
-    // Instantiate label_set module
-    label_set label_set_inst (
-        .clk(clk_100MHz),
-        .reset(reset),
-        .clear(clear),
-        .pixel_addr(pixel_addr),
-        .state(pass_state),
-        .min_label_in(mem_label_out),
-        .left_up_label_in(left_up_label),
-        .up_label_in(up_label),
-        .right_up_label_in(right_up_label),
-        .min_label_out(final_label_out)
-    );
-    
-        // Instantiate blk_mem_gen_1
+        
+    // Instantiate blk_mem_gen_1
     blk_mem_gen_1 blk_mem_gen_1_inst (
         .clka(clk_100MHz),
         .wea(wea),
         .addra(pixel_addr),
         .dina(data),
         .douta(rgb_pixel_in),
-        .clkb(w_p_tick),
+        .clkb(w_n_tick),
         .web(wea),
         .addrb(pixel_addr_1),
         .dinb(data),
         .doutb(rgb_pixel_original),
         .ena(ena)
     );
+
+    // Instantiate preprocessor
+    preprocess preprocessor_inst (
+        .clk(w_n_tick),
+        .reset(reset),
+        .rgb_pixel_in(rgb_pixel_in),
+        .w_x(w_x),
+        .w_y(w_y),
+        .a_video_on(a_video_on),
+        .b_video_on(b_video_on),
+        .binarize_pixel(binarize_pixel),
+        .result(preprocess_result)
+    );
+
+    // Instantiate two_passing module
+    two_passing two_passing_inst (
+        .clk_100MHz(clk_100MHz),
+        .reset(reset),
+        .w_p_tick(w_p_tick),
+        .w_n_tick(w_n_tick),
+        .w_x(w_x),
+        .w_y(w_y),
+        .a_video_on(a_video_on),
+        .b_video_on(b_video_on),
+        .label_write_1(label_write_1),
+        .label_write_2(label_write_2),
+        .pass_state(pass_state),
+        .clear(clear),
+        .pixel_addr(pixel_addr),
+        .pixel_in(preprocessing_image),
+        .label_result(label)
+    );
+
+    // Instantiate draw_frame module
+    draw_frame draw_frame_inst (
+        .clk_100MHz(clk_100MHz),
+        .reset(reset),
+        .w_p_tick(w_p_tick),
+        .w_n_tick(w_n_tick),
+        .w_x(w_x),
+        .w_y(w_y),
+        .a_video_on(a_video_on),
+        .b_video_on(b_video_on),
+        .pass_state(pass_state),
+        .clear(clear),
+        .pixel_addr(pixel_addr),
+        .pixel_in(label),
+        .pixel_out(display_signal)
+    );
     
-        // Instantiate blk_mem_gen_3 (store the preprocessing image)
+    // Instantiate blk_mem_gen_3 (store the preprocessing image)
     wire data1;
     wire data2;
     wire preprocessing_image;
@@ -204,55 +184,14 @@ module top(
         .doutb(preprocessing_image),
         .enb(ena)
     );
-
-    // Instantiate draw_face_frame module
-    wire frame_mem_wea;
-    wire frame;
-    wire [9:0] Xmin;
-    wire [9:0] Ymin;
-    wire [9:0] Xmax;
-    wire [9:0] Ymax;
-    draw_face_frame draw_face_frame_inst (
-        .clk(clk_100MHz),
-        .reset(reset),
-        .pixel_in(mem_label_out_2),
-        .pass_state(pass_state),
-        .video_on(a_video_on),
-        .x(w_x),
-        .y(w_y),
-        .frame_mem_wea(frame_mem_wea),
-        .pixel_out(frame),
-        .Xmin(Xmin),
-        .Ymin(Ymin),
-        .Xmax(Xmax),
-        .Ymax(Ymax),
-        .test_reg(test_reg)
-    );
-
-    // frame memory
-    wire data3;
-    wire data4;
-    wire rectangle;
-    frame_mem frame_memory_inst (
-        .clka(w_n_tick),
-        .wea(frame_mem_wea),
-        .addra(pixel_addr),
-        .dina(frame),
-        .douta(data3),
-        .clkb(w_n_tick),
-        .web(1'b0),
-        .addrb(pixel_addr),
-        .dinb(data4),
-        .doutb(rectangle),
-        .enb(1'b1)
-    );
     
     // Instantiate display module
     display display_inst (
-        .clk_100MHz(clk_100MHz),
+        .clk_100MHz(w_p_tick),
         .a_video_on(a_video_on),
         .b_video_on(b_video_on),
-        .rectangle(rectangle),
+        .rectangle(display_signal),
+        // .rgb_pixel_original({label, label}),
         .rgb_pixel_original(rgb_pixel_original),
         .rgb(rgb)
     );
