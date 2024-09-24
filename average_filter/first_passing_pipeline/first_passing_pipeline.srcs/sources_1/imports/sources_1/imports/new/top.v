@@ -90,6 +90,13 @@ module top(
     );
 
     // Instantiate draw_frame module
+    wire frame_mem_wea;
+    wire [9:0] Xmin;
+    wire [9:0] Ymin;
+    wire [9:0] Xmax;
+    wire [9:0] Ymax;
+    wire [9:0] test_reg;
+
     draw_frame draw_frame_inst (
         .clk_100MHz(clk_100MHz),
         .reset(reset),

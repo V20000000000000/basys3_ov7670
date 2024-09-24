@@ -3,114 +3,41 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="top_tb_behav.wdb" id="1">
+      <db_ref path="tb_relabel_module_behav.wdb" id="1">
          <top_modules>
             <top_module name="glbl" />
-            <top_module name="top_tb" />
+            <top_module name="tb_relabel_module" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="136,643,376.100 ns"></ZoomStartTime>
-      <ZoomEndTime time="136,644,735.101 ns"></ZoomEndTime>
-      <Cursor1Time time="136,643,785.100 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,370.056 ns"></ZoomEndTime>
+      <Cursor1Time time="20.816 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="173"></NameColumnWidth>
-      <ValueColumnWidth column_width="69"></ValueColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
-   <wvobject fp_name="/top_tb/clk_100MHz" type="logic">
-      <obj_property name="ElementShortName">clk_100MHz</obj_property>
-      <obj_property name="ObjectShortName">clk_100MHz</obj_property>
+   <WVObjectSize size="5" />
+   <wvobject fp_name="/tb_relabel_module/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/reset" type="logic">
+   <wvobject fp_name="/tb_relabel_module/reset" type="logic">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/hsync" type="logic">
-      <obj_property name="ElementShortName">hsync</obj_property>
-      <obj_property name="ObjectShortName">hsync</obj_property>
+   <wvobject fp_name="/tb_relabel_module/pixel_in" type="array">
+      <obj_property name="ElementShortName">pixel_in[5:0]</obj_property>
+      <obj_property name="ObjectShortName">pixel_in[5:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/vsync" type="logic">
-      <obj_property name="ElementShortName">vsync</obj_property>
-      <obj_property name="ObjectShortName">vsync</obj_property>
+   <wvobject fp_name="/tb_relabel_module/relabel_out" type="array">
+      <obj_property name="ElementShortName">relabel_out[5:0]</obj_property>
+      <obj_property name="ObjectShortName">relabel_out[5:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/rgb" type="array">
-      <obj_property name="ElementShortName">rgb[11:0]</obj_property>
-      <obj_property name="ObjectShortName">rgb[11:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/w_x" type="array">
-      <obj_property name="ElementShortName">w_x[9:0]</obj_property>
-      <obj_property name="ObjectShortName">w_x[9:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/w_y" type="array">
-      <obj_property name="ElementShortName">w_y[9:0]</obj_property>
-      <obj_property name="ObjectShortName">w_y[9:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/w_p_tick" type="logic">
-      <obj_property name="ElementShortName">w_p_tick</obj_property>
-      <obj_property name="ObjectShortName">w_p_tick</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/w_n_tick" type="logic">
-      <obj_property name="ElementShortName">w_n_tick</obj_property>
-      <obj_property name="ObjectShortName">w_n_tick</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/pass_state" type="array">
-      <obj_property name="ElementShortName">pass_state[1:0]</obj_property>
-      <obj_property name="ObjectShortName">pass_state[1:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/clear" type="logic">
-      <obj_property name="ElementShortName">clear</obj_property>
-      <obj_property name="ObjectShortName">clear</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/label_write_1" type="logic">
-      <obj_property name="ElementShortName">label_write_1</obj_property>
-      <obj_property name="ObjectShortName">label_write_1</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/label_write_2" type="logic">
-      <obj_property name="ElementShortName">label_write_2</obj_property>
-      <obj_property name="ObjectShortName">label_write_2</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/pixel_addr" type="array">
-      <obj_property name="ElementShortName">pixel_addr[14:0]</obj_property>
-      <obj_property name="ObjectShortName">pixel_addr[14:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/pixel_addr_1" type="array">
-      <obj_property name="ElementShortName">pixel_addr_1[14:0]</obj_property>
-      <obj_property name="ObjectShortName">pixel_addr_1[14:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/rgb_pixel_in" type="array">
-      <obj_property name="ElementShortName">rgb_pixel_in[11:0]</obj_property>
-      <obj_property name="ObjectShortName">rgb_pixel_in[11:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/rgb_pixel_original" type="array">
-      <obj_property name="ElementShortName">rgb_pixel_original[11:0]</obj_property>
-      <obj_property name="ObjectShortName">rgb_pixel_original[11:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/preprocess_result" type="logic">
-      <obj_property name="ElementShortName">preprocess_result</obj_property>
-      <obj_property name="ObjectShortName">preprocess_result</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/preprocessing_image" type="logic">
-      <obj_property name="ElementShortName">preprocessing_image</obj_property>
-      <obj_property name="ObjectShortName">preprocessing_image</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/label" type="array">
-      <obj_property name="ElementShortName">label[5:0]</obj_property>
-      <obj_property name="ObjectShortName">label[5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/display_signal" type="logic">
-      <obj_property name="ElementShortName">display_signal</obj_property>
-      <obj_property name="ObjectShortName">display_signal</obj_property>
+   <wvobject fp_name="/tb_relabel_module/labelcount" type="array">
+      <obj_property name="ElementShortName">labelcount[5:0]</obj_property>
+      <obj_property name="ObjectShortName">labelcount[5:0]</obj_property>
    </wvobject>
 </wave_config>

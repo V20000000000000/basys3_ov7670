@@ -43,10 +43,26 @@ module draw_frame(
     wire [9:0] Ymin;
     wire [9:0] Xmax;
     wire [9:0] Ymax;
-    draw_face_frame draw_face_frame_inst (
+
+    wire [5:0] relabel_out;
+    
+    wire [5:0] new_label;
+
+    // Instantiate relabel_module module
+    relabel_module relabel_module_inst (
         .clk(clk_100MHz),
         .reset(reset),
         .pixel_in(pixel_in),
+        .video_on(a_video_on),
+        .pass_state(pass_state),
+        .relabel_out(relabel_out),
+        .labelcount(new_label)
+    );
+
+    draw_face_frame draw_face_frame_inst (
+        .clk(clk_100MHz),
+        .reset(reset),
+        .pixel_in(relabel_out),
         .pass_state(pass_state),
         .video_on(a_video_on),
         .x(w_x),

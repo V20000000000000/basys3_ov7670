@@ -50,6 +50,10 @@ module draw_face_frame(
 
     //generate 25mhz clock
     reg [1:0] count;
+
+    reg p1;
+    reg p2;
+    reg p3;
     
     // Reset or update min/max bounds for each label
     always @(posedge clk) begin
@@ -64,23 +68,7 @@ module draw_face_frame(
                 minY[i] <= 10'b1111111111;
             end
                 pixel_out <= 0;       // Output black pixel when reset or video is off
-        end /*
-        else if(pass_state == 2'b01)begin
-                    if(x >= 0 && x <= 64 && y == 200 && count == 0) begin
-                        if (minX[x[5:0]] >= 5) begin
-                            minX[x[5:0]] <= minX[x[5:0]] - 5;
-                        end
-                        if (minY[x[5:0]] >= 5) begin
-                            minY[x[5:0]] <= minY[x[5:0]] - 5;
-                        end
-                        if (maxX[x[5:0]] >= 5) begin
-                            maxX[x[5:0]] <= maxX[x[5:0]] - 5;
-                        end
-                        if (maxY[x[5:0]] >= 5) begin
-                            maxY[x[5:0]] <= maxY[x[5:0]] - 5;
-                        end
-                    end
-            end*/
+        end 
         else begin
             if(video_on == 1) begin
                 if(pass_state == 2'b00) begin
