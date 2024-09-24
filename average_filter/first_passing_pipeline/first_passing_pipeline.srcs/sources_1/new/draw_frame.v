@@ -81,7 +81,7 @@ module draw_frame(
     wire data4;
     wire rectangle;
     frame_mem frame_memory_inst (
-        .clka(w_n_tick),
+        .clka(clk_100MHz),
         .wea(frame_mem_wea),
         .addra(pixel_addr),
         .dina(frame),
